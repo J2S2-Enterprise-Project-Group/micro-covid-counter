@@ -1,8 +1,12 @@
 import React from 'react';
 import logo from './micro-covid-logo.png';
 import './App.css';
+import ActivityForm from './components/ActivityForm/ActivityForm';
 
-function App() {
+interface IAppContainer {
+}
+
+export const App: React.FC<IAppContainer> = (): JSX.Element => {
   return (
     <div className="App">
       <header className="App-header">
@@ -11,6 +15,7 @@ function App() {
           Micro Covid Counter
         </h3>
       </header>
+      <ActivityForm />
     </div>
   );
 }

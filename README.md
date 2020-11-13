@@ -1,3 +1,11 @@
+# First time setup
+
+1. `npm install -g @aws-amplify/cli`
+2. `amplify configure`
+3. `amplify init`
+4. `amplify mock api`
+5. `npm start`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
