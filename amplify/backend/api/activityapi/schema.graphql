@@ -1,0 +1,4 @@
+type Activity @model {
+  id: ID!
+  type: String!
+}
