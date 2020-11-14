@@ -125,7 +125,6 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
               <TextField
                 required
                 fullWidth
-                // label="Number of people"
                 value={numPeople}
                 name="numPeople"
                 onChange={handleSelectChange}
