@@ -1,4 +1,10 @@
 type Activity @model {
   id: ID!
-  type: String!
+  inSocialBubble: Boolean!
+  numPeople: Int!
+  distanceSafetyLevel: Int!
+  isIndoors: Boolean!
+  userMaskSafetyLevel: Int!
+  othersMaskSafetyLevel: Int!
+  volumeLevel: Int!
 }

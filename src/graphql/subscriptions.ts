@@ -6,7 +6,13 @@ export const onCreateActivity = /* GraphQL */ `
   subscription OnCreateActivity {
     onCreateActivity {
       id
-      type
+      inSocialBubble
+      numPeople
+      distanceSafetyLevel
+      isIndoors
+      userMaskSafetyLevel
+      othersMaskSafetyLevel
+      volumeLevel
       createdAt
       updatedAt
     }
@@ -16,7 +22,13 @@ export const onUpdateActivity = /* GraphQL */ `
   subscription OnUpdateActivity {
     onUpdateActivity {
       id
-      type
+      inSocialBubble
+      numPeople
+      distanceSafetyLevel
+      isIndoors
+      userMaskSafetyLevel
+      othersMaskSafetyLevel
+      volumeLevel
       createdAt
       updatedAt
     }
@@ -26,7 +38,13 @@ export const onDeleteActivity = /* GraphQL */ `
   subscription OnDeleteActivity {
     onDeleteActivity {
       id
-      type
+      inSocialBubble
+      numPeople
+      distanceSafetyLevel
+      isIndoors
+      userMaskSafetyLevel
+      othersMaskSafetyLevel
+      volumeLevel
       createdAt
       updatedAt
     }

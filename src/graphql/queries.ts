@@ -6,7 +6,13 @@ export const getActivity = /* GraphQL */ `
   query GetActivity($id: ID!) {
     getActivity(id: $id) {
       id
-      type
+      inSocialBubble
+      numPeople
+      distanceSafetyLevel
+      isIndoors
+      userMaskSafetyLevel
+      othersMaskSafetyLevel
+      volumeLevel
       createdAt
       updatedAt
     }
@@ -21,7 +27,13 @@ export const listActivitys = /* GraphQL */ `
     listActivitys(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        type
+        inSocialBubble
+        numPeople
+        distanceSafetyLevel
+        isIndoors
+        userMaskSafetyLevel
+        othersMaskSafetyLevel
+        volumeLevel
         createdAt
         updatedAt
       }
