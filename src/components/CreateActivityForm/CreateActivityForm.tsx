@@ -1,99 +1,199 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import './CreateActivityForm.css';
 
 interface ICreateActivityForm {
 }
 
-const locations = [
-  {
-    state: 'California',
-    counties: ['Santa Clara', 'Alameda'],
-  },
-  {
-    state: 'Arizona',
-    counties: ['Apache'],
-  }
-];
+const SOCIAL_GROUP_OPTIONS = ['within my social bubble', 'outside my social bubble'];
+const DISTANCE_OPTIONS = ['Very close (< 1ft)', 'No physical distancing (< 3 ft)', 'Physical distancing (> 6 ft)', 'Far away (> 10 ft)'];
+const MASK_TYPES = ['No mask', 'Cotton mask or face covering', 'Surgical mask', 'N95'];
+const VOLUME_TYPES = ['Silence', 'Normal conversation', 'Loud talking, shouting, singing'];
 
 export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element => {
-  const [formState, setFormState] = useState({ state: '', county: '' })
-  const [state, setState] = useState<string>('');
-  const [county, setCounty] = useState<string>('');
+  const [socialGroup, setSocialGroup] = useState<string>('');
+  const [numPeople, setNumPeople] = useState(0);
+  const [distance, setDistance] = useState<string>('');
+  const [environment, setEnvironment] = useState<string>('');
+  const [userMaskType, setUserMaskType] = useState<string>('');
+  const [othersMaskType, setOthersMaskType] = useState<string>('');
+  const [volume, setVolume] = useState<string>('');
 
-  async function submitActivity(event: any) {
+  const submitActivity = (event: any) => {
     event.preventDefault();
-    try {
-      const activity: any = { ...formState }
-      console.log(activity)
-    } catch (err) {
-      console.log('error creating activities:', err)
-    }
-  }
-
-  function setInput(key: string, value: any) {
-    setFormState({ ...formState, [key]: value })
+    console.log(socialGroup, numPeople);
   }
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.name === "state") {
-      setState(event.target.value);
-      setCounty('');
-    } else if (event.target.name === "county") {
-      setCounty(event.target.value);
+    const value = event.target.value;
+    switch (event.target.name) {
+      case "socialGroup":
+        setSocialGroup(value);
+        break;
+      case "numPeople":
+        setNumPeople(parseInt(value));
+        break;
+      case "distance":
+        setDistance(value);
+        break;
+      case "environment":
+        setEnvironment(value);
+        break;
+      case "userMaskType":
+        setUserMaskType(value);
+        break;
+      case "othersMaskType":
+        setOthersMaskType(value);
+        break;
+      case "volume":
+        setVolume(value);
+        break;
+      default:
+        break;
     }
   };
 
   return (
     <div className="CreateActivityForm">
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <form noValidate autoComplete="off">
-            <div>
+      <h2>Log your activities to approximate your COVID-19 risk:</h2>
+      <form>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <h3>Nearby people</h3>
+            <div className="activityFormTextField">
               <TextField
-                id="select-state"
                 select
-                label="Select state"
-                name="state"
-                value={state}
+                required
+                fullWidth
+                label="Contact Type"
+                name="socialGroup"
+                value={socialGroup}
                 onChange={handleSelectChange}
-                helperText="Please select your state"
-                variant="outlined"
+                helperText="Who did you come into contact with?"
               >
-                {locations.map((option) => (
-                  <MenuItem key={option.state} value={option.state}>
-                    {option.state}
+                {SOCIAL_GROUP_OPTIONS.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
                   </MenuItem>
                 ))}
               </TextField>
             </div>
-            <div>
+            <div className="activityFormTextField">
               <TextField
-                id="select-county"
-                select
-                label="Select county"
-                name="county"
-                value={county}
+                required
+                fullWidth
+                // label="Number of people"
+                value={numPeople}
+                name="numPeople"
                 onChange={handleSelectChange}
-                helperText="Please select your county"
-                variant="outlined"
+                type="number"
+                helperText="How many people were within 15 ft?"
+              />
+            </div>
+            <div className="activityFormTextField">
+              <TextField
+                select
+                required
+                fullWidth
+                label="Distance"
+                value={distance}
+                name="distance"
+                onChange={handleSelectChange}
+                helperText="How close were others to you on average?"
               >
-                {locations.map((location) => (
-                  location.state === state && location.counties.map(county => (
-                    <MenuItem key={county} value={county}>
-                      {county}
-                    </MenuItem>
-                  ))
+                {DISTANCE_OPTIONS.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
                 ))}
               </TextField>
             </div>
-          </form>
+          </Grid>
+          <Grid item xs={6}>
+            <h3>Activity details</h3>
+            <div className="activityFormTextField">
+              <TextField
+                select
+                required
+                fullWidth
+                label="Indoor or outdoor"
+                name="environment"
+                value={environment}
+                onChange={handleSelectChange}
+                helperText="Were you indoors or outdoors?"
+              >
+                {SOCIAL_GROUP_OPTIONS.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div className="activityFormTextField">
+              <TextField
+                select
+                required
+                fullWidth
+                label="Your mask"
+                value={userMaskType}
+                name="userMaskType"
+                onChange={handleSelectChange}
+                helperText="What kind of mask were you wearing?"
+              >
+                {MASK_TYPES.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div className="activityFormTextField">
+              <TextField
+                select
+                required
+                fullWidth
+                label="Others' masks"
+                value={othersMaskType}
+                name="othersMaskType"
+                onChange={handleSelectChange}
+                helperText="What kind of masks were most others wearing?"
+              >
+                {MASK_TYPES.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div className="activityFormTextField">
+              <TextField
+                select
+                required
+                fullWidth
+                label="Volume"
+                value={volume}
+                name="volume"
+                onChange={handleSelectChange}
+                helperText="How much was everyone talking?"
+              >
+                {VOLUME_TYPES.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            <Button fullWidth variant="contained" color="primary" onSubmit={submitActivity}>
+              Save Activity
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <div></div>
-        </Grid>
-      </Grid>
+      </form>
     </div>
   );
 }

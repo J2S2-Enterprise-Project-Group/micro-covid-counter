@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './micro-covid-logo.png';
 import './App.css';
-import ActivityForm from './components/ActivityForm/ActivityForm';
+import Container from '@material-ui/core/Container';
 import CreateActivityForm from './components/CreateActivityForm/CreateActivityForm';
 
 interface IAppContainer {
@@ -16,8 +16,9 @@ export const App: React.FC<IAppContainer> = (): JSX.Element => {
           Micro Covid Counter
         </h3>
       </header>
-      <ActivityForm />
-      <CreateActivityForm />
+        <Container maxWidth="sm">
+          <CreateActivityForm />
+        </Container>
     </div>
   );
 }
