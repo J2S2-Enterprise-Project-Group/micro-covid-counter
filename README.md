@@ -6,6 +6,9 @@
 4. `amplify mock api`
 5. `npm start`
 
+## If you update the data schema:
+`amplify api gql-compile`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

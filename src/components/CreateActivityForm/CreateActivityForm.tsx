@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import './CreateActivityForm.css';
 
+import API, { GraphQLResult, graphqlOperation } from '@aws-amplify/api';
+import { listActivitys } from '../../graphql/queries'
+import { createActivity } from '../../graphql/mutations';
+import * as APIInterface from '../../API';
+
 interface ICreateActivityForm {
 }
 
-const SOCIAL_GROUP_OPTIONS = ['within my social bubble', 'outside my social bubble'];
+const SOCIAL_GROUP_OPTIONS = ['outside my social bubble', 'within my social bubble'];
 const DISTANCE_OPTIONS = ['Very close (< 1ft)', 'No physical distancing (< 3 ft)', 'Physical distancing (> 6 ft)', 'Far away (> 10 ft)'];
 const MASK_TYPES = ['No mask', 'Cotton mask or face covering', 'Surgical mask', 'N95'];
 const VOLUME_TYPES = ['Silence', 'Normal conversation', 'Loud talking, shouting, singing'];
+const ENVIRONMENT_TYPES = ['Outdoors', 'Indoors'];
 
 export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element => {
   const [socialGroup, setSocialGroup] = useState<string>('');
@@ -22,9 +28,43 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
   const [othersMaskType, setOthersMaskType] = useState<string>('');
   const [volume, setVolume] = useState<string>('');
 
-  const submitActivity = (event: any) => {
+  useEffect(() => {
+    fetchActivities()
+  }, [])
+
+  // TODO: This throws "No credential error" even though it didn't before?
+  async function fetchActivities() {
+    try {
+      const allActivitiesResponse: GraphQLResult<APIInterface.ListActivitysQuery> = await API.graphql(graphqlOperation(listActivitys)) as GraphQLResult<APIInterface.ListActivitysQuery>
+      console.log(allActivitiesResponse)
+      const allActivities: any = allActivitiesResponse.data?.listActivitys?.items;
+      console.log(allActivities);
+    } catch (err) { console.log('error fetching activities: ', err) }
+  }
+
+  async function submitActivity(event: any) {
     event.preventDefault();
-    console.log(socialGroup, numPeople);
+
+    try {
+      // Map to correct types based on order in array (options ordered in increasing risk order)
+      const activity: APIInterface.CreateActivityInput = {
+        id: '<REPLACE>2', // TODO: GENERATE UNIQUE ID EACH TIME
+        inSocialBubble: Boolean(SOCIAL_GROUP_OPTIONS.indexOf(socialGroup)),
+        numPeople: numPeople,
+        distanceSafetyLevel: DISTANCE_OPTIONS.indexOf(distance),
+        isIndoors: Boolean(ENVIRONMENT_TYPES.indexOf(environment)),
+        userMaskSafetyLevel: MASK_TYPES.indexOf(userMaskType),
+        othersMaskSafetyLevel: MASK_TYPES.indexOf(othersMaskType),
+        volumeLevel: VOLUME_TYPES.indexOf(volume),
+      };
+
+      const activityResponse: GraphQLResult<APIInterface.CreateActivityMutation> = await API.graphql(graphqlOperation(createActivity, { input: activity })) as GraphQLResult<APIInterface.CreateActivityMutation>;
+      const activityData: any = activityResponse.data?.createActivity
+      console.log('Created activity:')
+      console.log(activityData)
+    } catch (err) {
+      console.log('error creating activities:', err)
+    }
   }
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,7 +165,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="Were you indoors or outdoors?"
               >
-                {SOCIAL_GROUP_OPTIONS.map((option) => (
+                {ENVIRONMENT_TYPES.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -188,7 +228,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
             </div>
           </Grid>
           <Grid item xs={12}>
-            <Button fullWidth variant="contained" color="primary" onSubmit={submitActivity}>
+            <Button fullWidth variant="contained" color="primary" onClick={submitActivity}>
               Save Activity
             </Button>
           </Grid>

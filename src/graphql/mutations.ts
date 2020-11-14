@@ -9,7 +9,13 @@ export const createActivity = /* GraphQL */ `
   ) {
     createActivity(input: $input, condition: $condition) {
       id
-      type
+      inSocialBubble
+      numPeople
+      distanceSafetyLevel
+      isIndoors
+      userMaskSafetyLevel
+      othersMaskSafetyLevel
+      volumeLevel
       createdAt
       updatedAt
     }
@@ -22,7 +28,13 @@ export const updateActivity = /* GraphQL */ `
   ) {
     updateActivity(input: $input, condition: $condition) {
       id
-      type
+      inSocialBubble
+      numPeople
+      distanceSafetyLevel
+      isIndoors
+      userMaskSafetyLevel
+      othersMaskSafetyLevel
+      volumeLevel
       createdAt
       updatedAt
     }
@@ -35,7 +47,13 @@ export const deleteActivity = /* GraphQL */ `
   ) {
     deleteActivity(input: $input, condition: $condition) {
       id
-      type
+      inSocialBubble
+      numPeople
+      distanceSafetyLevel
+      isIndoors
+      userMaskSafetyLevel
+      othersMaskSafetyLevel
+      volumeLevel
       createdAt
       updatedAt
     }
