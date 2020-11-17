@@ -23,5 +23,13 @@
       "providerPlugin": "awscloudformation",
       "type": "manual"
     }
+  },
+  "auth": {
+    "covidcounterba0a32fb": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
   }
 }
