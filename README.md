@@ -2,7 +2,7 @@
 
 1. `npm install -g @aws-amplify/cli`
 2. `amplify configure`
-3. `amplify pull`
+3. Do this every time before starting dev: `amplify pull`
 4. `amplify mock api`
 5. `npm start`
 6. To check resources: `amplify status` (please make sure you are not deleting any resources in AWS)
