@@ -11,13 +11,14 @@ export const createActivity = /* GraphQL */ `
       id
       inSocialBubble
       numPeople
-      distanceSafetyLevel
+      distanceRiskLevel
       isIndoors
-      userMaskSafetyLevel
-      othersMaskSafetyLevel
+      userMaskRiskLevel
+      othersMaskRiskLevel
       volumeLevel
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -30,13 +31,14 @@ export const updateActivity = /* GraphQL */ `
       id
       inSocialBubble
       numPeople
-      distanceSafetyLevel
+      distanceRiskLevel
       isIndoors
-      userMaskSafetyLevel
-      othersMaskSafetyLevel
+      userMaskRiskLevel
+      othersMaskRiskLevel
       volumeLevel
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -49,13 +51,14 @@ export const deleteActivity = /* GraphQL */ `
       id
       inSocialBubble
       numPeople
-      distanceSafetyLevel
+      distanceRiskLevel
       isIndoors
-      userMaskSafetyLevel
-      othersMaskSafetyLevel
+      userMaskRiskLevel
+      othersMaskRiskLevel
       volumeLevel
       createdAt
       updatedAt
+      owner
     }
   }
 `;
