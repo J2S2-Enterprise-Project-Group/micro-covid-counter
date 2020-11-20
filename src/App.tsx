@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import logo from './micro-covid-logo.png';
 import './App.css';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Nav from './components/Nav/Nav';
+import Landing from './components/Landing/Landing';
 import CreateActivityForm from './components/CreateActivityForm/CreateActivityForm';
 import { Auth } from 'aws-amplify';
 import { CognitoUserInterface } from '@aws-amplify/ui-components';
+import { Route, BrowserRouter, Switch } from 'react-router-dom'
 
 interface IAppContainer {
 }
@@ -28,22 +29,16 @@ export const App: React.FC<IAppContainer> = (): JSX.Element => {
 
   return (
     <div className="App">
-      <Nav />
-      <Container maxWidth="lg">
-        {user ? (
-          <div>
-            <Typography variant="h3" gutterBottom>Welcome, {user.attributes.name}</Typography>
-            <CreateActivityForm />
-          </div>
-        ) : (
-          <div>
-            <Typography variant="h3" gutterBottom>Please sign in to microCovid</Typography>
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-            </header>
-          </div>
-        )}
-      </Container>
+      <BrowserRouter>
+        <Nav />
+        <Container maxWidth="lg">
+          <Typography variant="h3" gutterBottom>{user ? "Welcome, " + user.attributes.name : null }</Typography>
+          <Switch>
+            <Route exact path="/" component={() => <Landing isLoggedIn={user !== undefined} />} />
+            {user && <Route exact path="/activity/new" component={CreateActivityForm} />}
+          </Switch>
+        </Container>
+      </BrowserRouter>
     </div>
   );
 }

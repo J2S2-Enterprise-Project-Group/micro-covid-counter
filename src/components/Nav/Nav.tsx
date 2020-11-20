@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
+import { Link } from 'react-router-dom';
+import './Nav.css';
 
 interface INav {
 }
@@ -57,13 +59,17 @@ export const Nav: React.FC<INav> = (): JSX.Element => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.title}>
-            microCovid
-              </Typography>
+            <Link to="/" className="navLink">
+              microCovid
+            </Link>
+          </Typography>
           {user ? (
             <div>
-              <IconButton aria-haspopup="true" color="inherit">
-                <CreateIcon />
-              </IconButton>
+              <Link to="/activity/new" className="navLink">
+                <IconButton aria-haspopup="true" color="inherit">
+                  <CreateIcon />
+                </IconButton>
+              </Link>
               <Button aria-haspopup="true" color="inherit" onClick={() => Auth.signOut()}>Log out</Button>
             </div>
           ) : (
