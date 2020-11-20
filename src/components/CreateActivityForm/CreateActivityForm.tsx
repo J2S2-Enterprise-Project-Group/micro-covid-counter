@@ -13,16 +13,32 @@ import * as APIInterface from '../../API';
 interface ICreateActivityForm {
 }
 
-const SOCIAL_GROUP_OPTIONS = ['outside my social bubble', 'within my social bubble'];
-const DISTANCE_OPTIONS = ['Very close (< 1ft)', 'No physical distancing (< 3 ft)', 'Physical distancing (> 6 ft)', 'Far away (> 10 ft)'];
-const MASK_TYPES = ['No mask', 'Cotton mask or face covering', 'Surgical mask', 'N95'];
+// Store inSocialBubble as bool from position: true = 'within my social bubble', false = 'outside my social bubble'
+const SOCIAL_GROUP_OPTIONS = ['outside my social bubble', 'within my social bubble']; 
+// Store distanceRiskLevel where
+//  0 = 'Far away (> 10 ft)'
+//  1 = 'Physical distancing (> 6 ft)'
+//  2 = 'No physical distancing (< 3 ft)'
+//  3 = 'Very close (< 1ft)'
+const DISTANCE_LEVEL_OPTIONS = ['Far away (> 10 ft)', 'Physical distancing (> 6 ft)', 'No physical distancing (< 3 ft)', 'Very close (< 1ft)'];
+// Store maskTypeRiskLevel where
+//  0 = 'N95'
+//  1 = 'Surgical mask'
+//  2 = 'Cotton mask or face covering'
+//  3 = 'No mask'
+const MASK_TYPE_OPTIONS = ['N95', 'Surgical mask', 'Cotton mask or face covering', 'No mask'];
+// Store volumeLevel where
+//  0 = 'Silence'
+//  1 = 'Normal conversation'
+//  2 = 'Loud talking, shouting, singing'
 const VOLUME_TYPES = ['Silence', 'Normal conversation', 'Loud talking, shouting, singing'];
-const ENVIRONMENT_TYPES = ['Outdoors', 'Indoors'];
+// Store isIndoors as bool from position: true = 'Indoors', false = 'Outdoors
+const ENVIRONMENT_TYPES = ['Outdoors', 'Indoors']; 
 
 export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element => {
   const [socialGroup, setSocialGroup] = useState<string>('');
   const [numPeople, setNumPeople] = useState(0);
-  const [distance, setDistance] = useState<string>('');
+  const [distanceRiskLevel, setDistanceRiskLevel] = useState<string>('');
   const [environment, setEnvironment] = useState<string>('');
   const [userMaskType, setUserMaskType] = useState<string>('');
   const [othersMaskType, setOthersMaskType] = useState<string>('');
@@ -32,11 +48,9 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
     fetchActivities()
   }, [])
 
-  // TODO: This throws "No credential error" even though it didn't before?
   async function fetchActivities() {
     try {
       const allActivitiesResponse: GraphQLResult<APIInterface.ListActivitysQuery> = await API.graphql(graphqlOperation(listActivitys)) as GraphQLResult<APIInterface.ListActivitysQuery>
-      console.log(allActivitiesResponse)
       const allActivities: any = allActivitiesResponse.data?.listActivitys?.items;
       console.log(allActivities);
     } catch (err) { console.log('error fetching activities: ', err) }
@@ -48,13 +62,12 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
     try {
       // Map to correct types based on order in array (options ordered in increasing risk order)
       const activity: APIInterface.CreateActivityInput = {
-        id: '<REPLACE>2', // TODO: GENERATE UNIQUE ID EACH TIME
         inSocialBubble: Boolean(SOCIAL_GROUP_OPTIONS.indexOf(socialGroup)),
         numPeople: numPeople,
-        distanceSafetyLevel: DISTANCE_OPTIONS.indexOf(distance),
+        distanceRiskLevel: DISTANCE_LEVEL_OPTIONS.indexOf(distanceRiskLevel),
         isIndoors: Boolean(ENVIRONMENT_TYPES.indexOf(environment)),
-        userMaskSafetyLevel: MASK_TYPES.indexOf(userMaskType),
-        othersMaskSafetyLevel: MASK_TYPES.indexOf(othersMaskType),
+        userMaskRiskLevel: MASK_TYPE_OPTIONS.indexOf(userMaskType),
+        othersMaskRiskLevel: MASK_TYPE_OPTIONS.indexOf(othersMaskType),
         volumeLevel: VOLUME_TYPES.indexOf(volume),
       };
 
@@ -76,8 +89,8 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
       case "numPeople":
         setNumPeople(parseInt(value));
         break;
-      case "distance":
-        setDistance(value);
+      case "distanceRiskLevel":
+        setDistanceRiskLevel(value);
         break;
       case "environment":
         setEnvironment(value);
@@ -138,12 +151,12 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 required
                 fullWidth
                 label="Distance"
-                value={distance}
-                name="distance"
+                value={distanceRiskLevel}
+                name="distanceRiskLevel"
                 onChange={handleSelectChange}
                 helperText="How close were others to you on average?"
               >
-                {DISTANCE_OPTIONS.map((option) => (
+                {DISTANCE_LEVEL_OPTIONS.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -182,7 +195,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="What kind of mask were you wearing?"
               >
-                {MASK_TYPES.map((option) => (
+                {MASK_TYPE_OPTIONS.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -200,7 +213,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="What kind of masks were most others wearing?"
               >
-                {MASK_TYPES.map((option) => (
+                {MASK_TYPE_OPTIONS.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>

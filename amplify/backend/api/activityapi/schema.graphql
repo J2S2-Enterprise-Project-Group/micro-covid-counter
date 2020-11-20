@@ -1,10 +1,11 @@
-type Activity @model {
+type Activity @model @auth(rules: [{ allow: owner },
+                                    { allow: groups, groups: ["Admin"]}]) {
   id: ID!
   inSocialBubble: Boolean!
   numPeople: Int!
-  distanceSafetyLevel: Int!
+  distanceRiskLevel: Int!
   isIndoors: Boolean!
-  userMaskSafetyLevel: Int!
-  othersMaskSafetyLevel: Int!
+  userMaskRiskLevel: Int!
+  othersMaskRiskLevel: Int!
   volumeLevel: Int!
 }

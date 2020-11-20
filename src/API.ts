@@ -6,20 +6,20 @@ export type CreateActivityInput = {
   id?: string | null,
   inSocialBubble: boolean,
   numPeople: number,
-  distanceSafetyLevel: number,
+  distanceRiskLevel: number,
   isIndoors: boolean,
-  userMaskSafetyLevel: number,
-  othersMaskSafetyLevel: number,
+  userMaskRiskLevel: number,
+  othersMaskRiskLevel: number,
   volumeLevel: number,
 };
 
 export type ModelActivityConditionInput = {
   inSocialBubble?: ModelBooleanInput | null,
   numPeople?: ModelIntInput | null,
-  distanceSafetyLevel?: ModelIntInput | null,
+  distanceRiskLevel?: ModelIntInput | null,
   isIndoors?: ModelBooleanInput | null,
-  userMaskSafetyLevel?: ModelIntInput | null,
-  othersMaskSafetyLevel?: ModelIntInput | null,
+  userMaskRiskLevel?: ModelIntInput | null,
+  othersMaskRiskLevel?: ModelIntInput | null,
   volumeLevel?: ModelIntInput | null,
   and?: Array< ModelActivityConditionInput | null > | null,
   or?: Array< ModelActivityConditionInput | null > | null,
@@ -63,10 +63,10 @@ export type UpdateActivityInput = {
   id: string,
   inSocialBubble?: boolean | null,
   numPeople?: number | null,
-  distanceSafetyLevel?: number | null,
+  distanceRiskLevel?: number | null,
   isIndoors?: boolean | null,
-  userMaskSafetyLevel?: number | null,
-  othersMaskSafetyLevel?: number | null,
+  userMaskRiskLevel?: number | null,
+  othersMaskRiskLevel?: number | null,
   volumeLevel?: number | null,
 };
 
@@ -78,10 +78,10 @@ export type ModelActivityFilterInput = {
   id?: ModelIDInput | null,
   inSocialBubble?: ModelBooleanInput | null,
   numPeople?: ModelIntInput | null,
-  distanceSafetyLevel?: ModelIntInput | null,
+  distanceRiskLevel?: ModelIntInput | null,
   isIndoors?: ModelBooleanInput | null,
-  userMaskSafetyLevel?: ModelIntInput | null,
-  othersMaskSafetyLevel?: ModelIntInput | null,
+  userMaskRiskLevel?: ModelIntInput | null,
+  othersMaskRiskLevel?: ModelIntInput | null,
   volumeLevel?: ModelIntInput | null,
   and?: Array< ModelActivityFilterInput | null > | null,
   or?: Array< ModelActivityFilterInput | null > | null,
@@ -125,13 +125,14 @@ export type CreateActivityMutation = {
     id: string,
     inSocialBubble: boolean,
     numPeople: number,
-    distanceSafetyLevel: number,
+    distanceRiskLevel: number,
     isIndoors: boolean,
-    userMaskSafetyLevel: number,
-    othersMaskSafetyLevel: number,
+    userMaskRiskLevel: number,
+    othersMaskRiskLevel: number,
     volumeLevel: number,
     createdAt: string,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -146,13 +147,14 @@ export type UpdateActivityMutation = {
     id: string,
     inSocialBubble: boolean,
     numPeople: number,
-    distanceSafetyLevel: number,
+    distanceRiskLevel: number,
     isIndoors: boolean,
-    userMaskSafetyLevel: number,
-    othersMaskSafetyLevel: number,
+    userMaskRiskLevel: number,
+    othersMaskRiskLevel: number,
     volumeLevel: number,
     createdAt: string,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -167,13 +169,14 @@ export type DeleteActivityMutation = {
     id: string,
     inSocialBubble: boolean,
     numPeople: number,
-    distanceSafetyLevel: number,
+    distanceRiskLevel: number,
     isIndoors: boolean,
-    userMaskSafetyLevel: number,
-    othersMaskSafetyLevel: number,
+    userMaskRiskLevel: number,
+    othersMaskRiskLevel: number,
     volumeLevel: number,
     createdAt: string,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -187,13 +190,14 @@ export type GetActivityQuery = {
     id: string,
     inSocialBubble: boolean,
     numPeople: number,
-    distanceSafetyLevel: number,
+    distanceRiskLevel: number,
     isIndoors: boolean,
-    userMaskSafetyLevel: number,
-    othersMaskSafetyLevel: number,
+    userMaskRiskLevel: number,
+    othersMaskRiskLevel: number,
     volumeLevel: number,
     createdAt: string,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -211,16 +215,21 @@ export type ListActivitysQuery = {
       id: string,
       inSocialBubble: boolean,
       numPeople: number,
-      distanceSafetyLevel: number,
+      distanceRiskLevel: number,
       isIndoors: boolean,
-      userMaskSafetyLevel: number,
-      othersMaskSafetyLevel: number,
+      userMaskRiskLevel: number,
+      othersMaskRiskLevel: number,
       volumeLevel: number,
       createdAt: string,
       updatedAt: string,
+      owner: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
+};
+
+export type OnCreateActivitySubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateActivitySubscription = {
@@ -229,14 +238,19 @@ export type OnCreateActivitySubscription = {
     id: string,
     inSocialBubble: boolean,
     numPeople: number,
-    distanceSafetyLevel: number,
+    distanceRiskLevel: number,
     isIndoors: boolean,
-    userMaskSafetyLevel: number,
-    othersMaskSafetyLevel: number,
+    userMaskRiskLevel: number,
+    othersMaskRiskLevel: number,
     volumeLevel: number,
     createdAt: string,
     updatedAt: string,
+    owner: string | null,
   } | null,
+};
+
+export type OnUpdateActivitySubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateActivitySubscription = {
@@ -245,14 +259,19 @@ export type OnUpdateActivitySubscription = {
     id: string,
     inSocialBubble: boolean,
     numPeople: number,
-    distanceSafetyLevel: number,
+    distanceRiskLevel: number,
     isIndoors: boolean,
-    userMaskSafetyLevel: number,
-    othersMaskSafetyLevel: number,
+    userMaskRiskLevel: number,
+    othersMaskRiskLevel: number,
     volumeLevel: number,
     createdAt: string,
     updatedAt: string,
+    owner: string | null,
   } | null,
+};
+
+export type OnDeleteActivitySubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteActivitySubscription = {
@@ -261,12 +280,13 @@ export type OnDeleteActivitySubscription = {
     id: string,
     inSocialBubble: boolean,
     numPeople: number,
-    distanceSafetyLevel: number,
+    distanceRiskLevel: number,
     isIndoors: boolean,
-    userMaskSafetyLevel: number,
-    othersMaskSafetyLevel: number,
+    userMaskRiskLevel: number,
+    othersMaskRiskLevel: number,
     volumeLevel: number,
     createdAt: string,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };

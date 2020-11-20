@@ -8,13 +8,14 @@ export const getActivity = /* GraphQL */ `
       id
       inSocialBubble
       numPeople
-      distanceSafetyLevel
+      distanceRiskLevel
       isIndoors
-      userMaskSafetyLevel
-      othersMaskSafetyLevel
+      userMaskRiskLevel
+      othersMaskRiskLevel
       volumeLevel
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -29,13 +30,14 @@ export const listActivitys = /* GraphQL */ `
         id
         inSocialBubble
         numPeople
-        distanceSafetyLevel
+        distanceRiskLevel
         isIndoors
-        userMaskSafetyLevel
-        othersMaskSafetyLevel
+        userMaskRiskLevel
+        othersMaskRiskLevel
         volumeLevel
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
