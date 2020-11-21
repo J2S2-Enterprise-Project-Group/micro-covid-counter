@@ -12,15 +12,15 @@
       "AmplifyAppId": "d6xtks4714qlp"
     },
     "categories": {
+      "auth": {
+        "covidcounterba0a32fb": {
+          "hostedUIProviderCreds": "[]"
+        }
+      },
       "hosting": {
         "amplifyhosting": {
           "appId": "d6xtks4714qlp",
           "type": "manual"
-        }
-      },
-      "auth": {
-        "covidcounterba0a32fb": {
-          "hostedUIProviderCreds": "[]"
         }
       }
     }
