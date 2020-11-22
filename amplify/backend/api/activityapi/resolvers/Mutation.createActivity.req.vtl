@@ -25,6 +25,15 @@ $util.qr($context.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.inpu
       #break
     #end
   #end
+  ## Authorization rule: { allow: groups, groups: ["allcivilian"], groupClaim: "cognito:groups" } **
+  #set( $userGroups = $util.defaultIfNull($ctx.identity.claims.get("cognito:groups"), []) )
+  #set( $allowedGroups = ["allcivilian"] )
+  #foreach( $userGroup in $userGroups )
+    #if( $allowedGroups.contains($userGroup) )
+      #set( $isStaticGroupAuthorized = true )
+      #break
+    #end
+  #end
   ## [End] Static Group Authorization Checks **
 
 
