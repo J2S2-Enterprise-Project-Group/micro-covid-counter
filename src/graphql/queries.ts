@@ -13,6 +13,7 @@ export const getActivity = /* GraphQL */ `
       userMaskRiskLevel
       othersMaskRiskLevel
       volumeLevel
+      date
       createdAt
       updatedAt
       owner
@@ -35,6 +36,7 @@ export const listActivitys = /* GraphQL */ `
         userMaskRiskLevel
         othersMaskRiskLevel
         volumeLevel
+        date
         createdAt
         updatedAt
         owner

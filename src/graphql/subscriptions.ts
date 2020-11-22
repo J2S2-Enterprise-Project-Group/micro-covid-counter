@@ -13,6 +13,7 @@ export const onCreateActivity = /* GraphQL */ `
       userMaskRiskLevel
       othersMaskRiskLevel
       volumeLevel
+      date
       createdAt
       updatedAt
       owner
@@ -30,6 +31,7 @@ export const onUpdateActivity = /* GraphQL */ `
       userMaskRiskLevel
       othersMaskRiskLevel
       volumeLevel
+      date
       createdAt
       updatedAt
       owner
@@ -47,6 +49,7 @@ export const onDeleteActivity = /* GraphQL */ `
       userMaskRiskLevel
       othersMaskRiskLevel
       volumeLevel
+      date
       createdAt
       updatedAt
       owner
