@@ -41,15 +41,15 @@
     },
     "Resources": {
     
-        "cityadminGroup": {
+        "allcivilianGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
-              "GroupName" : "cityadmin",
+              "GroupName" : "allcivilian",
               "Precedence" : 1,
               
               "RoleArn" : {
                 "Fn::GetAtt": [
-                    "cityadminGroupRole",
+                    "allcivilianGroupRole",
                     "Arn"
                 ]
               },
@@ -60,7 +60,7 @@
             }
         },
         
-        "cityadminGroupRole": {
+        "allcivilianGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName":{
@@ -70,7 +70,7 @@
                           {
                             "Ref": "authcovidcounterba0a32fbUserPoolId"
                           },
-                          "-cityadminGroupRole"
+                          "-allcivilianGroupRole"
                         ]
                     ]
                 },
@@ -95,15 +95,15 @@
         },
      
     
-        "groupresidentGroup": {
+        "allcityadminGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
-              "GroupName" : "groupresident",
+              "GroupName" : "allcityadmin",
               "Precedence" : 2,
               
               "RoleArn" : {
                 "Fn::GetAtt": [
-                    "groupresidentGroupRole",
+                    "allcityadminGroupRole",
                     "Arn"
                 ]
               },
@@ -114,7 +114,7 @@
             }
         },
         
-        "groupresidentGroupRole": {
+        "allcityadminGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName":{
@@ -124,7 +124,7 @@
                           {
                             "Ref": "authcovidcounterba0a32fbUserPoolId"
                           },
-                          "-groupresidentGroupRole"
+                          "-allcityadminGroupRole"
                         ]
                     ]
                 },
@@ -149,15 +149,15 @@
         },
      
     
-        "allresidentGroup": {
+        "allciviliangroupsGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
-              "GroupName" : "allresident",
+              "GroupName" : "allciviliangroups",
               "Precedence" : 3,
               
               "RoleArn" : {
                 "Fn::GetAtt": [
-                    "allresidentGroupRole",
+                    "allciviliangroupsGroupRole",
                     "Arn"
                 ]
               },
@@ -168,7 +168,7 @@
             }
         },
         
-        "allresidentGroupRole": {
+        "allciviliangroupsGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName":{
@@ -178,7 +178,7 @@
                           {
                             "Ref": "authcovidcounterba0a32fbUserPoolId"
                           },
-                          "-allresidentGroupRole"
+                          "-allciviliangroupsGroupRole"
                         ]
                     ]
                 },
@@ -403,10 +403,10 @@
     
     "Outputs": {
       
-        "cityadminGroupRole": {
+        "allcivilianGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "cityadminGroupRole",
+                    "allcivilianGroupRole",
                     "Arn"
                 ]
             }
@@ -414,10 +414,10 @@
         },
         
       
-        "groupresidentGroupRole": {
+        "allcityadminGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "groupresidentGroupRole",
+                    "allcityadminGroupRole",
                     "Arn"
                 ]
             }
@@ -425,10 +425,10 @@
         },
         
       
-        "allresidentGroupRole": {
+        "allciviliangroupsGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "allresidentGroupRole",
+                    "allciviliangroupsGroupRole",
                     "Arn"
                 ]
             }
