@@ -1,5 +1,12 @@
-type Activity @model @auth(rules: [{ allow: owner },
-                                    { allow: groups, groups: ["Admin"]}]) {
+type Activity
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      { allow: groups, groups: ["allcivilian"], provider: userPools }
+    ]
+  ) {
   id: ID!
   inSocialBubble: Boolean!
   numPeople: Int!

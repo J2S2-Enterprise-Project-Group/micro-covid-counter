@@ -13,9 +13,7 @@
     },
     "categories": {
       "auth": {
-        "covidcounterba0a32fb": {
-          "hostedUIProviderCreds": "[]"
-        }
+        "covidcounterba0a32fb": {}
       },
       "hosting": {
         "amplifyhosting": {
