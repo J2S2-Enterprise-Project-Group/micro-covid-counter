@@ -11,6 +11,7 @@ export type CreateActivityInput = {
   userMaskRiskLevel: number,
   othersMaskRiskLevel: number,
   volumeLevel: number,
+  date: string,
 };
 
 export type ModelActivityConditionInput = {
@@ -21,6 +22,7 @@ export type ModelActivityConditionInput = {
   userMaskRiskLevel?: ModelIntInput | null,
   othersMaskRiskLevel?: ModelIntInput | null,
   volumeLevel?: ModelIntInput | null,
+  date?: ModelStringInput | null,
   and?: Array< ModelActivityConditionInput | null > | null,
   or?: Array< ModelActivityConditionInput | null > | null,
   not?: ModelActivityConditionInput | null,
@@ -59,36 +61,7 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type UpdateActivityInput = {
-  id: string,
-  inSocialBubble?: boolean | null,
-  numPeople?: number | null,
-  distanceRiskLevel?: number | null,
-  isIndoors?: boolean | null,
-  userMaskRiskLevel?: number | null,
-  othersMaskRiskLevel?: number | null,
-  volumeLevel?: number | null,
-};
-
-export type DeleteActivityInput = {
-  id?: string | null,
-};
-
-export type ModelActivityFilterInput = {
-  id?: ModelIDInput | null,
-  inSocialBubble?: ModelBooleanInput | null,
-  numPeople?: ModelIntInput | null,
-  distanceRiskLevel?: ModelIntInput | null,
-  isIndoors?: ModelBooleanInput | null,
-  userMaskRiskLevel?: ModelIntInput | null,
-  othersMaskRiskLevel?: ModelIntInput | null,
-  volumeLevel?: ModelIntInput | null,
-  and?: Array< ModelActivityFilterInput | null > | null,
-  or?: Array< ModelActivityFilterInput | null > | null,
-  not?: ModelActivityFilterInput | null,
-};
-
-export type ModelIDInput = {
+export type ModelStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -114,6 +87,53 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type UpdateActivityInput = {
+  id: string,
+  inSocialBubble?: boolean | null,
+  numPeople?: number | null,
+  distanceRiskLevel?: number | null,
+  isIndoors?: boolean | null,
+  userMaskRiskLevel?: number | null,
+  othersMaskRiskLevel?: number | null,
+  volumeLevel?: number | null,
+  date?: string | null,
+};
+
+export type DeleteActivityInput = {
+  id?: string | null,
+};
+
+export type ModelActivityFilterInput = {
+  id?: ModelIDInput | null,
+  inSocialBubble?: ModelBooleanInput | null,
+  numPeople?: ModelIntInput | null,
+  distanceRiskLevel?: ModelIntInput | null,
+  isIndoors?: ModelBooleanInput | null,
+  userMaskRiskLevel?: ModelIntInput | null,
+  othersMaskRiskLevel?: ModelIntInput | null,
+  volumeLevel?: ModelIntInput | null,
+  date?: ModelStringInput | null,
+  and?: Array< ModelActivityFilterInput | null > | null,
+  or?: Array< ModelActivityFilterInput | null > | null,
+  not?: ModelActivityFilterInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
 export type CreateActivityMutationVariables = {
   input: CreateActivityInput,
   condition?: ModelActivityConditionInput | null,
@@ -130,6 +150,7 @@ export type CreateActivityMutation = {
     userMaskRiskLevel: number,
     othersMaskRiskLevel: number,
     volumeLevel: number,
+    date: string,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -152,6 +173,7 @@ export type UpdateActivityMutation = {
     userMaskRiskLevel: number,
     othersMaskRiskLevel: number,
     volumeLevel: number,
+    date: string,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -174,6 +196,7 @@ export type DeleteActivityMutation = {
     userMaskRiskLevel: number,
     othersMaskRiskLevel: number,
     volumeLevel: number,
+    date: string,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -195,6 +218,7 @@ export type GetActivityQuery = {
     userMaskRiskLevel: number,
     othersMaskRiskLevel: number,
     volumeLevel: number,
+    date: string,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -220,6 +244,7 @@ export type ListActivitysQuery = {
       userMaskRiskLevel: number,
       othersMaskRiskLevel: number,
       volumeLevel: number,
+      date: string,
       createdAt: string,
       updatedAt: string,
       owner: string | null,
@@ -243,6 +268,7 @@ export type OnCreateActivitySubscription = {
     userMaskRiskLevel: number,
     othersMaskRiskLevel: number,
     volumeLevel: number,
+    date: string,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -264,6 +290,7 @@ export type OnUpdateActivitySubscription = {
     userMaskRiskLevel: number,
     othersMaskRiskLevel: number,
     volumeLevel: number,
+    date: string,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -285,6 +312,7 @@ export type OnDeleteActivitySubscription = {
     userMaskRiskLevel: number,
     othersMaskRiskLevel: number,
     volumeLevel: number,
+    date: string,
     createdAt: string,
     updatedAt: string,
     owner: string | null,

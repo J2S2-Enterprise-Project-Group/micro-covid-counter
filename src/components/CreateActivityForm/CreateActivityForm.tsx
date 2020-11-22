@@ -3,6 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import './CreateActivityForm.css';
 
 import API, { GraphQLResult, graphqlOperation } from '@aws-amplify/api';
@@ -43,6 +46,9 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
   const [userMaskType, setUserMaskType] = useState<string>('');
   const [othersMaskType, setOthersMaskType] = useState<string>('');
   const [volume, setVolume] = useState<string>('');
+  const [selectedDate, setSelectedDate] = React.useState <Date | null>(
+    new Date(),
+  );
 
   useEffect(() => {
     fetchActivities()
@@ -61,23 +67,41 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
 
     try {
       // Map to correct types based on order in array (options ordered in increasing risk order)
-      const activity: APIInterface.CreateActivityInput = {
-        inSocialBubble: Boolean(SOCIAL_GROUP_OPTIONS.indexOf(socialGroup)),
-        numPeople: numPeople,
-        distanceRiskLevel: DISTANCE_LEVEL_OPTIONS.indexOf(distanceRiskLevel),
-        isIndoors: Boolean(ENVIRONMENT_TYPES.indexOf(environment)),
-        userMaskRiskLevel: MASK_TYPE_OPTIONS.indexOf(userMaskType),
-        othersMaskRiskLevel: MASK_TYPE_OPTIONS.indexOf(othersMaskType),
-        volumeLevel: VOLUME_TYPES.indexOf(volume),
-      };
-
+      const activity: APIInterface.CreateActivityInput = mapInputToActivityModel();
       const activityResponse: GraphQLResult<APIInterface.CreateActivityMutation> = await API.graphql(graphqlOperation(createActivity, { input: activity })) as GraphQLResult<APIInterface.CreateActivityMutation>;
       const activityData: any = activityResponse.data?.createActivity
       console.log('Created activity:')
       console.log(activityData)
+      clearInput();
     } catch (err) {
       console.log('error creating activities:', err)
     }
+  }
+
+  function mapInputToActivityModel() {
+    const activity: APIInterface.CreateActivityInput = {
+      inSocialBubble: Boolean(SOCIAL_GROUP_OPTIONS.indexOf(socialGroup)),
+      numPeople: numPeople,
+      distanceRiskLevel: DISTANCE_LEVEL_OPTIONS.indexOf(distanceRiskLevel),
+      isIndoors: Boolean(ENVIRONMENT_TYPES.indexOf(environment)),
+      userMaskRiskLevel: MASK_TYPE_OPTIONS.indexOf(userMaskType),
+      othersMaskRiskLevel: MASK_TYPE_OPTIONS.indexOf(othersMaskType),
+      volumeLevel: VOLUME_TYPES.indexOf(volume),
+      date: selectedDate?.toISOString().split('T')[0] ?? new Date().toISOString().split('T')[0]
+    };
+
+    return activity;
+  }
+
+  function clearInput() {
+    setSocialGroup('');
+    setNumPeople(0);
+    setDistanceRiskLevel('');
+    setEnvironment('');
+    setUserMaskType('');
+    setOthersMaskType('');
+    setVolume('');
+    setSelectedDate(new Date());
   }
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,6 +131,10 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
       default:
         break;
     }
+  };
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
   };
 
   return (
@@ -166,6 +194,24 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
           </Grid>
           <Grid item xs={6}>
             <h3>Activity details</h3>
+            <div>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  fullWidth
+                  variant="inline"
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  id="date-picker-inline"
+                  label="Date picker inline"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </div>
             <div className="activityFormTextField">
               <TextField
                 select

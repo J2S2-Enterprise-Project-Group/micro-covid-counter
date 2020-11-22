@@ -15,4 +15,5 @@ type Activity
   userMaskRiskLevel: Int!
   othersMaskRiskLevel: Int!
   volumeLevel: Int!
+  date: AWSDate!
 }
