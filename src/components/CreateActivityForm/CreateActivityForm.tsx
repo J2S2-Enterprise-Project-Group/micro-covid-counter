@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -12,48 +13,32 @@ import API, { GraphQLResult, graphqlOperation } from '@aws-amplify/api';
 import { listActivitys } from '../../graphql/queries'
 import { createActivity } from '../../graphql/mutations';
 import * as APIInterface from '../../API';
+import * as ActivityOptions from '../../helpers/Activity';
 
 interface ICreateActivityForm {
+  onChange: (risk: number) => void
 }
 
-// Store inSocialBubble as bool from position: true = 'within my social bubble', false = 'outside my social bubble'
-const SOCIAL_GROUP_OPTIONS = ['outside my social bubble', 'within my social bubble']; 
-// Store distanceRiskLevel where
-//  0 = 'Far away (> 10 ft)'
-//  1 = 'Physical distancing (> 6 ft)'
-//  2 = 'No physical distancing (< 3 ft)'
-//  3 = 'Very close (< 1ft)'
-const DISTANCE_LEVEL_OPTIONS = ['Far away (> 10 ft)', 'Physical distancing (> 6 ft)', 'No physical distancing (< 3 ft)', 'Very close (< 1ft)'];
-// Store maskTypeRiskLevel where
-//  0 = 'N95'
-//  1 = 'Surgical mask'
-//  2 = 'Cotton mask or face covering'
-//  3 = 'No mask'
-const MASK_TYPE_OPTIONS = ['N95', 'Surgical mask', 'Cotton mask or face covering', 'No mask'];
-// Store volumeLevel where
-//  0 = 'Silence'
-//  1 = 'Normal conversation'
-//  2 = 'Loud talking, shouting, singing'
-const VOLUME_TYPES = ['Silence', 'Normal conversation', 'Loud talking, shouting, singing'];
-// Store isIndoors as bool from position: true = 'Indoors', false = 'Outdoors
-const ENVIRONMENT_TYPES = ['Outdoors', 'Indoors']; 
-
-export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element => {
-  const [socialGroup, setSocialGroup] = useState<string>('');
+export const CreateActivityForm: React.FC<ICreateActivityForm> = (props): JSX.Element => {
+  const { onChange } = props;
+  const [socialGroup, setSocialGroup] = useState<string>(ActivityOptions.SOCIAL_GROUP_OPTIONS[0]);
   const [numPeople, setNumPeople] = useState(0);
-  const [distanceRiskLevel, setDistanceRiskLevel] = useState<string>('');
-  const [environment, setEnvironment] = useState<string>('');
-  const [userMaskType, setUserMaskType] = useState<string>('');
-  const [othersMaskType, setOthersMaskType] = useState<string>('');
-  const [volume, setVolume] = useState<string>('');
-  const [selectedDate, setSelectedDate] = React.useState <Date | null>(
-    new Date(),
-  );
+  const [distanceRiskLevel, setDistanceRiskLevel] = useState<string>(ActivityOptions.DISTANCE_LEVEL_OPTIONS[0]);
+  const [environment, setEnvironment] = useState<string>(ActivityOptions.ENVIRONMENT_TYPES[0]);
+  const [userMaskType, setUserMaskType] = useState<string>(ActivityOptions.MASK_TYPE_OPTIONS[0]);
+  const [othersMaskType, setOthersMaskType] = useState<string>(ActivityOptions.MASK_TYPE_OPTIONS[0]);
+  const [volume, setVolume] = useState<string>(ActivityOptions.VOLUME_TYPES[0]);
+  const [selectedDate, setSelectedDate] = React.useState <Date | null>(new Date());
+  const [risk, setRisk] = React.useState<number>(0.0);
 
   useEffect(() => {
-    fetchActivities()
-  }, [])
+    const risk: number = ActivityOptions.computeCovidRisk(mapInputToActivityModel());
+    onChange(risk);
+    setRisk(risk);
+    // eslint-disable-next-line
+  }, [socialGroup, numPeople, distanceRiskLevel, environment, userMaskType, othersMaskType, volume, selectedDate])
 
+  // eslint-disable-next-line
   async function fetchActivities() {
     try {
       const allActivitiesResponse: GraphQLResult<APIInterface.ListActivitysQuery> = await API.graphql(graphqlOperation(listActivitys)) as GraphQLResult<APIInterface.ListActivitysQuery>
@@ -80,27 +65,28 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
 
   function mapInputToActivityModel() {
     const activity: APIInterface.CreateActivityInput = {
-      inSocialBubble: Boolean(SOCIAL_GROUP_OPTIONS.indexOf(socialGroup)),
+      inSocialBubble: Boolean(ActivityOptions.SOCIAL_GROUP_OPTIONS.indexOf(socialGroup)),
       numPeople: numPeople,
-      distanceRiskLevel: DISTANCE_LEVEL_OPTIONS.indexOf(distanceRiskLevel),
-      isIndoors: Boolean(ENVIRONMENT_TYPES.indexOf(environment)),
-      userMaskRiskLevel: MASK_TYPE_OPTIONS.indexOf(userMaskType),
-      othersMaskRiskLevel: MASK_TYPE_OPTIONS.indexOf(othersMaskType),
-      volumeLevel: VOLUME_TYPES.indexOf(volume),
-      date: selectedDate?.toISOString().split('T')[0] ?? new Date().toISOString().split('T')[0]
+      distanceRiskLevel: ActivityOptions.DISTANCE_LEVEL_OPTIONS.indexOf(distanceRiskLevel),
+      isIndoors: Boolean(ActivityOptions.ENVIRONMENT_TYPES.indexOf(environment)),
+      userMaskRiskLevel: ActivityOptions.MASK_TYPE_OPTIONS.indexOf(userMaskType),
+      othersMaskRiskLevel: ActivityOptions.MASK_TYPE_OPTIONS.indexOf(othersMaskType),
+      volumeLevel: ActivityOptions.VOLUME_TYPES.indexOf(volume),
+      date: selectedDate?.toISOString().split('T')[0] ?? new Date().toISOString().split('T')[0],
+      risk: risk
     };
 
     return activity;
   }
 
   function clearInput() {
-    setSocialGroup('');
+    setSocialGroup(ActivityOptions.SOCIAL_GROUP_OPTIONS[0]);
     setNumPeople(0);
-    setDistanceRiskLevel('');
-    setEnvironment('');
-    setUserMaskType('');
-    setOthersMaskType('');
-    setVolume('');
+    setDistanceRiskLevel(ActivityOptions.DISTANCE_LEVEL_OPTIONS[0]);
+    setEnvironment(ActivityOptions.ENVIRONMENT_TYPES[0]);
+    setUserMaskType(ActivityOptions.MASK_TYPE_OPTIONS[0]);
+    setOthersMaskType(ActivityOptions.MASK_TYPE_OPTIONS[0]);
+    setVolume(ActivityOptions.VOLUME_TYPES[0]);
     setSelectedDate(new Date());
   }
 
@@ -139,11 +125,11 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
 
   return (
     <div className="CreateActivityForm">
-      <h2>Log your activities to approximate your COVID-19 risk:</h2>
+      <Typography variant="h4" gutterBottom>Log your activities to approximate your COVID-19 risk:</Typography>
       <form>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <h3>Nearby people</h3>
+            <Typography variant="h6" gutterBottom>Nearby people</Typography>
             <div className="activityFormTextField">
               <TextField
                 select
@@ -155,7 +141,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="Who did you come into contact with?"
               >
-                {SOCIAL_GROUP_OPTIONS.map((option) => (
+                {ActivityOptions.SOCIAL_GROUP_OPTIONS.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -184,7 +170,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="How close were others to you on average?"
               >
-                {DISTANCE_LEVEL_OPTIONS.map((option) => (
+                {ActivityOptions.DISTANCE_LEVEL_OPTIONS.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -193,7 +179,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
             </div>
           </Grid>
           <Grid item xs={6}>
-            <h3>Activity details</h3>
+            <Typography variant="h6" gutterBottom>Activity details</Typography>
             <div>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
@@ -223,7 +209,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="Were you indoors or outdoors?"
               >
-                {ENVIRONMENT_TYPES.map((option) => (
+                {ActivityOptions.ENVIRONMENT_TYPES.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -241,7 +227,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="What kind of mask were you wearing?"
               >
-                {MASK_TYPE_OPTIONS.map((option) => (
+                {ActivityOptions.MASK_TYPE_OPTIONS.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -259,7 +245,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="What kind of masks were most others wearing?"
               >
-                {MASK_TYPE_OPTIONS.map((option) => (
+                {ActivityOptions.MASK_TYPE_OPTIONS.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -277,7 +263,7 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (): JSX.Element
                 onChange={handleSelectChange}
                 helperText="How much was everyone talking?"
               >
-                {VOLUME_TYPES.map((option) => (
+                {ActivityOptions.VOLUME_TYPES.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>

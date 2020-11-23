@@ -14,6 +14,7 @@ export const getActivity = /* GraphQL */ `
       othersMaskRiskLevel
       volumeLevel
       date
+      risk
       createdAt
       updatedAt
       owner
@@ -37,6 +38,7 @@ export const listActivitys = /* GraphQL */ `
         othersMaskRiskLevel
         volumeLevel
         date
+        risk
         createdAt
         updatedAt
         owner

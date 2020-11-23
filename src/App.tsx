@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Nav from './components/Nav/Nav';
 import Landing from './components/Landing/Landing';
-import CreateActivityForm from './components/CreateActivityForm/CreateActivityForm';
+import ActivityLogger from './components/ActivityLogger/ActivityLogger';
 import { Auth } from 'aws-amplify';
 import { CognitoUserInterface } from '@aws-amplify/ui-components';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
@@ -35,7 +35,7 @@ export const App: React.FC<IAppContainer> = (): JSX.Element => {
           <Typography variant="h3" gutterBottom>{user ? "Welcome, " + user.attributes.name : null }</Typography>
           <Switch>
             <Route exact path="/" component={() => <Landing isLoggedIn={user !== undefined} />} />
-            {user && <Route exact path="/activity/new" component={CreateActivityForm} />}
+            {user && <Route exact path="/activity/new" component={ActivityLogger} />}
           </Switch>
         </Container>
       </BrowserRouter>
