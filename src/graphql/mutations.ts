@@ -17,6 +17,7 @@ export const createActivity = /* GraphQL */ `
       othersMaskRiskLevel
       volumeLevel
       date
+      risk
       createdAt
       updatedAt
       owner
@@ -38,6 +39,7 @@ export const updateActivity = /* GraphQL */ `
       othersMaskRiskLevel
       volumeLevel
       date
+      risk
       createdAt
       updatedAt
       owner
@@ -59,6 +61,7 @@ export const deleteActivity = /* GraphQL */ `
       othersMaskRiskLevel
       volumeLevel
       date
+      risk
       createdAt
       updatedAt
       owner

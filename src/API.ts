@@ -12,6 +12,7 @@ export type CreateActivityInput = {
   othersMaskRiskLevel: number,
   volumeLevel: number,
   date: string,
+  risk: number,
 };
 
 export type ModelActivityConditionInput = {
@@ -23,6 +24,7 @@ export type ModelActivityConditionInput = {
   othersMaskRiskLevel?: ModelIntInput | null,
   volumeLevel?: ModelIntInput | null,
   date?: ModelStringInput | null,
+  risk?: ModelFloatInput | null,
   and?: Array< ModelActivityConditionInput | null > | null,
   or?: Array< ModelActivityConditionInput | null > | null,
   not?: ModelActivityConditionInput | null,
@@ -87,6 +89,18 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type UpdateActivityInput = {
   id: string,
   inSocialBubble?: boolean | null,
@@ -97,6 +111,7 @@ export type UpdateActivityInput = {
   othersMaskRiskLevel?: number | null,
   volumeLevel?: number | null,
   date?: string | null,
+  risk?: number | null,
 };
 
 export type DeleteActivityInput = {
@@ -113,6 +128,7 @@ export type ModelActivityFilterInput = {
   othersMaskRiskLevel?: ModelIntInput | null,
   volumeLevel?: ModelIntInput | null,
   date?: ModelStringInput | null,
+  risk?: ModelFloatInput | null,
   and?: Array< ModelActivityFilterInput | null > | null,
   or?: Array< ModelActivityFilterInput | null > | null,
   not?: ModelActivityFilterInput | null,
@@ -151,6 +167,7 @@ export type CreateActivityMutation = {
     othersMaskRiskLevel: number,
     volumeLevel: number,
     date: string,
+    risk: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -174,6 +191,7 @@ export type UpdateActivityMutation = {
     othersMaskRiskLevel: number,
     volumeLevel: number,
     date: string,
+    risk: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -197,6 +215,7 @@ export type DeleteActivityMutation = {
     othersMaskRiskLevel: number,
     volumeLevel: number,
     date: string,
+    risk: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -219,6 +238,7 @@ export type GetActivityQuery = {
     othersMaskRiskLevel: number,
     volumeLevel: number,
     date: string,
+    risk: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -245,6 +265,7 @@ export type ListActivitysQuery = {
       othersMaskRiskLevel: number,
       volumeLevel: number,
       date: string,
+      risk: number,
       createdAt: string,
       updatedAt: string,
       owner: string | null,
@@ -269,6 +290,7 @@ export type OnCreateActivitySubscription = {
     othersMaskRiskLevel: number,
     volumeLevel: number,
     date: string,
+    risk: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -291,6 +313,7 @@ export type OnUpdateActivitySubscription = {
     othersMaskRiskLevel: number,
     volumeLevel: number,
     date: string,
+    risk: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -313,6 +336,7 @@ export type OnDeleteActivitySubscription = {
     othersMaskRiskLevel: number,
     volumeLevel: number,
     date: string,
+    risk: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,

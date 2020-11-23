@@ -16,4 +16,5 @@ type Activity
   othersMaskRiskLevel: Int!
   volumeLevel: Int!
   date: AWSDate!
+  risk: Float!
 }

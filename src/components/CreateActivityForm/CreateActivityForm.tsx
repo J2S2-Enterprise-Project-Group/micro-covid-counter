@@ -16,7 +16,7 @@ import * as APIInterface from '../../API';
 import * as ActivityOptions from '../../helpers/Activity';
 
 interface ICreateActivityForm {
-  onChange: (e: APIInterface.CreateActivityInput) => void
+  onChange: (risk: number) => void
 }
 
 export const CreateActivityForm: React.FC<ICreateActivityForm> = (props): JSX.Element => {
@@ -29,9 +29,12 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (props): JSX.El
   const [othersMaskType, setOthersMaskType] = useState<string>(ActivityOptions.MASK_TYPE_OPTIONS[0]);
   const [volume, setVolume] = useState<string>(ActivityOptions.VOLUME_TYPES[0]);
   const [selectedDate, setSelectedDate] = React.useState <Date | null>(new Date());
+  const [risk, setRisk] = React.useState<number>(0.0);
 
   useEffect(() => {
-    onChange(mapInputToActivityModel());
+    const risk: number = ActivityOptions.computeCovidRisk(mapInputToActivityModel());
+    onChange(risk);
+    setRisk(risk);
     // eslint-disable-next-line
   }, [socialGroup, numPeople, distanceRiskLevel, environment, userMaskType, othersMaskType, volume, selectedDate])
 
@@ -69,7 +72,8 @@ export const CreateActivityForm: React.FC<ICreateActivityForm> = (props): JSX.El
       userMaskRiskLevel: ActivityOptions.MASK_TYPE_OPTIONS.indexOf(userMaskType),
       othersMaskRiskLevel: ActivityOptions.MASK_TYPE_OPTIONS.indexOf(othersMaskType),
       volumeLevel: ActivityOptions.VOLUME_TYPES.indexOf(volume),
-      date: selectedDate?.toISOString().split('T')[0] ?? new Date().toISOString().split('T')[0]
+      date: selectedDate?.toISOString().split('T')[0] ?? new Date().toISOString().split('T')[0],
+      risk: risk
     };
 
     return activity;
