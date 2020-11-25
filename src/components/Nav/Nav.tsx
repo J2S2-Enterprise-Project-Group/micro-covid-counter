@@ -17,6 +17,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import { Link } from 'react-router-dom';
 import './Nav.css';
 import clsx from 'clsx';
@@ -144,10 +145,11 @@ export const Nav: React.FC<INav> = (): JSX.Element => {
             <List>
 
               {[
-                { text: 'Dashboard', icon: DashboardIcon },
-                { text: 'Group', icon: GroupWorkIcon },
-                { text: 'People', icon: PeopleAltIcon }].map((item, index) => (
-                  <ListItem button key={index}>
+                { text: 'Activity Log', icon: EventAvailableIcon, url: '/activities' },
+                { text: 'Dashboard', icon: DashboardIcon, url: '/dashboard' },
+                { text: 'Groups', icon: GroupWorkIcon, url: '/groups' },
+                { text: 'People', icon: PeopleAltIcon, url: '/people' }].map((item, index) => (
+                  <ListItem button key={index} component={Link} to={item.url}>
                     <ListItemIcon><item.icon /></ListItemIcon>
                     <ListItemText primary={item.text} />
                   </ListItem>
