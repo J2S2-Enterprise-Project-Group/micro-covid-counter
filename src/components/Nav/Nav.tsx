@@ -145,7 +145,7 @@ export const Nav: React.FC<INav> = (): JSX.Element => {
             <List>
 
               {[
-                { text: 'Activity Log', icon: EventAvailableIcon, url: '/activities' },
+                { text: 'Activity Log', icon: EventAvailableIcon, url: '/activity/new' },
                 { text: 'Dashboard', icon: DashboardIcon, url: '/dashboard' },
                 { text: 'Groups', icon: GroupWorkIcon, url: '/groups' },
                 { text: 'People', icon: PeopleAltIcon, url: '/people' }].map((item, index) => (
@@ -158,21 +158,14 @@ export const Nav: React.FC<INav> = (): JSX.Element => {
           </Drawer>
           <Typography variant="h6" color="inherit" className={classes.title}>
             <Link to="/" className="navLink">
-              Micro Covid
+              microCovid
             </Link>
           </Typography>
           {user ? (
-            <div>
-              <Link to="/activity/new" className="navLink">
-                <IconButton aria-haspopup="true" color="inherit">
-                  <CreateIcon />
-                </IconButton>
-              </Link>
-              <Button aria-haspopup="true" color="inherit" onClick={() => Auth.signOut()}>Log out</Button>
-            </div>
+            <Button aria-haspopup="true" color="inherit" onClick={() => Auth.signOut()}>Log out</Button>
           ) : (
-              <Button aria-haspopup="true" color="inherit" onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>Sign in</Button>
-            )}
+            <Button aria-haspopup="true" color="inherit" onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>Sign in</Button>
+          )}
         </Toolbar>
       </AppBar>
     </div>
