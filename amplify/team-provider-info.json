@@ -15,7 +15,8 @@
       "auth": {
         "covidcounterba0a32fb": {
           "hostedUIProviderCreds": "[]"
-        }
+        },
+        "userPoolGroups": {}
       },
       "hosting": {
         "amplifyhosting": {
