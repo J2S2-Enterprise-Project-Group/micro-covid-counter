@@ -18,12 +18,13 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.6",
     "aws-amplify": "^3.3.4",
+    "clsx": "^1.1.1",
     "date-fns": "^2.16.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
-    "clsx": "^1.1.1",
     "react-scripts": "3.4.3",
+    "react-twitter-widgets": "^1.9.5",
     "typescript": "~3.7.2"
   },
   "devDependencies": {
