@@ -1,5 +1,5 @@
 {
-  "name": "covid-counter",
+  "name": "micro-covid-counter",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
