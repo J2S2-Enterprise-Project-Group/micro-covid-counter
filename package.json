@@ -20,8 +20,10 @@
     "aws-amplify": "^3.3.4",
     "clsx": "^1.1.1",
     "date-fns": "^2.16.1",
+    "frappe-charts": "^1.5.4",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-frappe-charts": "^4.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-twitter-widgets": "^1.9.5",
@@ -38,7 +40,7 @@
     "enzyme-to-json": "^3.6.1",
     "react-test-renderer": "^16.13.1",
     "jest-transform-css": "2.1.0",
-    "identity-obj-proxy":"3.0.0"
+    "identity-obj-proxy": "3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -89,7 +91,9 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mock__/fileMock.js",
       "^@/(.*)$": "<rootDir>/$1"
     },
-    "setupFilesAfterEnv": ["<rootDir>/src/setupTests.ts"]
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
