@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ReactFrappeChart from "react-frappe-charts";
-
+import ReactFrappeChart from 'react-frappe-charts';
 import API, { GraphQLResult, graphqlOperation } from '@aws-amplify/api';
 import { listActivitys } from '../../graphql/queries'
 import * as APIInterface from '../../API';
