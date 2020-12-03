@@ -18,6 +18,9 @@ export const createActivity = /* GraphQL */ `
       volumeLevel
       date
       risk
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -40,6 +43,9 @@ export const updateActivity = /* GraphQL */ `
       volumeLevel
       date
       risk
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -62,6 +68,9 @@ export const deleteActivity = /* GraphQL */ `
       volumeLevel
       date
       risk
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -77,6 +86,10 @@ export const createGroup = /* GraphQL */ `
       id
       name
       description
+      groupMembers
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -91,6 +104,10 @@ export const updateGroup = /* GraphQL */ `
       id
       name
       description
+      groupMembers
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -105,6 +122,10 @@ export const deleteGroup = /* GraphQL */ `
       id
       name
       description
+      groupMembers
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

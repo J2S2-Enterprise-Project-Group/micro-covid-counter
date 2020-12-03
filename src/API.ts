@@ -13,6 +13,7 @@ export type CreateActivityInput = {
   volumeLevel: number,
   date: string,
   risk: number,
+  _version?: number | null,
 };
 
 export type ModelActivityConditionInput = {
@@ -112,21 +113,26 @@ export type UpdateActivityInput = {
   volumeLevel?: number | null,
   date?: string | null,
   risk?: number | null,
+  _version?: number | null,
 };
 
 export type DeleteActivityInput = {
   id?: string | null,
+  _version?: number | null,
 };
 
 export type CreateGroupInput = {
   id?: string | null,
   name: string,
   description?: string | null,
+  groupMembers?: Array< string | null > | null,
+  _version?: number | null,
 };
 
 export type ModelGroupConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  groupMembers?: ModelStringInput | null,
   and?: Array< ModelGroupConditionInput | null > | null,
   or?: Array< ModelGroupConditionInput | null > | null,
   not?: ModelGroupConditionInput | null,
@@ -136,10 +142,13 @@ export type UpdateGroupInput = {
   id: string,
   name?: string | null,
   description?: string | null,
+  groupMembers?: Array< string | null > | null,
+  _version?: number | null,
 };
 
 export type DeleteGroupInput = {
   id?: string | null,
+  _version?: number | null,
 };
 
 export type ModelActivityFilterInput = {
@@ -178,6 +187,7 @@ export type ModelGroupFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  groupMembers?: ModelStringInput | null,
   and?: Array< ModelGroupFilterInput | null > | null,
   or?: Array< ModelGroupFilterInput | null > | null,
   not?: ModelGroupFilterInput | null,
@@ -201,6 +211,9 @@ export type CreateActivityMutation = {
     volumeLevel: number,
     date: string,
     risk: number,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -225,6 +238,9 @@ export type UpdateActivityMutation = {
     volumeLevel: number,
     date: string,
     risk: number,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -249,6 +265,9 @@ export type DeleteActivityMutation = {
     volumeLevel: number,
     date: string,
     risk: number,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -266,6 +285,10 @@ export type CreateGroupMutation = {
     id: string,
     name: string,
     description: string | null,
+    groupMembers: Array< string | null > | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -282,6 +305,10 @@ export type UpdateGroupMutation = {
     id: string,
     name: string,
     description: string | null,
+    groupMembers: Array< string | null > | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -298,8 +325,46 @@ export type DeleteGroupMutation = {
     id: string,
     name: string,
     description: string | null,
+    groupMembers: Array< string | null > | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type SyncActivitiesQueryVariables = {
+  filter?: ModelActivityFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncActivitiesQuery = {
+  syncActivities:  {
+    __typename: "ModelActivityConnection",
+    items:  Array< {
+      __typename: "Activity",
+      id: string,
+      inSocialBubble: boolean,
+      numPeople: number,
+      distanceRiskLevel: number,
+      isIndoors: boolean,
+      userMaskRiskLevel: number,
+      othersMaskRiskLevel: number,
+      volumeLevel: number,
+      date: string,
+      risk: number,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
@@ -320,6 +385,9 @@ export type GetActivityQuery = {
     volumeLevel: number,
     date: string,
     risk: number,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -347,11 +415,42 @@ export type ListActivitysQuery = {
       volumeLevel: number,
       date: string,
       risk: number,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
       owner: string | null,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type SyncGroupsQueryVariables = {
+  filter?: ModelGroupFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncGroupsQuery = {
+  syncGroups:  {
+    __typename: "ModelGroupConnection",
+    items:  Array< {
+      __typename: "Group",
+      id: string,
+      name: string,
+      description: string | null,
+      groupMembers: Array< string | null > | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
@@ -365,6 +464,10 @@ export type GetGroupQuery = {
     id: string,
     name: string,
     description: string | null,
+    groupMembers: Array< string | null > | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -384,10 +487,15 @@ export type ListGroupsQuery = {
       id: string,
       name: string,
       description: string | null,
+      groupMembers: Array< string | null > | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
@@ -408,6 +516,9 @@ export type OnCreateActivitySubscription = {
     volumeLevel: number,
     date: string,
     risk: number,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -431,6 +542,9 @@ export type OnUpdateActivitySubscription = {
     volumeLevel: number,
     date: string,
     risk: number,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -454,6 +568,9 @@ export type OnDeleteActivitySubscription = {
     volumeLevel: number,
     date: string,
     risk: number,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner: string | null,
@@ -466,6 +583,10 @@ export type OnCreateGroupSubscription = {
     id: string,
     name: string,
     description: string | null,
+    groupMembers: Array< string | null > | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -477,6 +598,10 @@ export type OnUpdateGroupSubscription = {
     id: string,
     name: string,
     description: string | null,
+    groupMembers: Array< string | null > | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -488,6 +613,10 @@ export type OnDeleteGroupSubscription = {
     id: string,
     name: string,
     description: string | null,
+    groupMembers: Array< string | null > | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,

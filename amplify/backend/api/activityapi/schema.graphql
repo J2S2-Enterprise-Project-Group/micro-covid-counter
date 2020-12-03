@@ -19,9 +19,11 @@ type Activity
   risk: Float!
 }
 
-type Group @model {
+type Group 
+@model {
   id: ID!
   name: String!
   description: String
+  groupMembers:[String]
 }
 
