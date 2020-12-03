@@ -8,9 +8,9 @@
   ## [Start] Static Group Authorization Checks **
   #set($isStaticGroupAuthorized = $util.defaultIfNull(
             $isStaticGroupAuthorized, false))
-  ## Authorization rule: { allow: groups, groups: ["allcityadmin"], groupClaim: "cognito:groups" } **
+  ## Authorization rule: { allow: groups, groups: ["Admin"], groupClaim: "cognito:groups" } **
   #set( $userGroups = $util.defaultIfNull($ctx.identity.claims.get("cognito:groups"), []) )
-  #set( $allowedGroups = ["allcityadmin"] )
+  #set( $allowedGroups = ["Admin"] )
   #foreach( $userGroup in $userGroups )
     #if( $allowedGroups.contains($userGroup) )
       #set( $isStaticGroupAuthorized = true )
@@ -166,6 +166,5 @@
   "key": #if( $modelObjectKey ) $util.toJson($modelObjectKey) #else {
   "id": $util.dynamodb.toDynamoDBJson($ctx.args.input.id)
 } #end,
-  "condition": $util.toJson($condition),
-  "_version": $util.defaultIfNull($ctx.args.input["_version"], "0")
+  "condition": $util.toJson($condition)
 }
