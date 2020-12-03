@@ -55,9 +55,9 @@ export const CreateGroupForm: React.FC<CreateGroupFormProps> = (): JSX.Element =
     }
   }, [formState])
 
-  const handleDeleteGroup = useCallback(async (itemId: string) => {
+  const handleDeleteGroup = useCallback(async (id, _version) => {
     try {
-      await API.graphql(graphqlOperation(deleteGroup, { input: { id: itemId } }))
+      await API.graphql(graphqlOperation(deleteGroup, { input: { id, _version } }))
     } catch (err) {
       console.log('error creating todo:', err)
     }
@@ -106,7 +106,7 @@ export const CreateGroupForm: React.FC<CreateGroupFormProps> = (): JSX.Element =
                 <TableCell align="right"> {group.name}</TableCell>
                 <TableCell align="right">{group.description}</TableCell>
                 <TableCell align="right">
-                  <Button variant="contained" color="secondary" onClick={() => handleDeleteGroup(group.id)}>
+                  <Button variant="contained" color="secondary" onClick={() => handleDeleteGroup(group.id, group._version)}>
                     Delete Group
                   </Button>
                 </TableCell>
