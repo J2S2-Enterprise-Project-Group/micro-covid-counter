@@ -18,6 +18,9 @@ export const createActivity = /* GraphQL */ `
       volumeLevel
       date
       risk
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -40,6 +43,9 @@ export const updateActivity = /* GraphQL */ `
       volumeLevel
       date
       risk
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -62,9 +68,66 @@ export const deleteActivity = /* GraphQL */ `
       volumeLevel
       date
       risk
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
+    }
+  }
+`;
+export const createGroup = /* GraphQL */ `
+  mutation CreateGroup(
+    $input: CreateGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    createGroup(input: $input, condition: $condition) {
+      id
+      name
+      description
+      groupMembers
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateGroup = /* GraphQL */ `
+  mutation UpdateGroup(
+    $input: UpdateGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    updateGroup(input: $input, condition: $condition) {
+      id
+      name
+      description
+      groupMembers
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteGroup = /* GraphQL */ `
+  mutation DeleteGroup(
+    $input: DeleteGroupInput!
+    $condition: ModelGroupConditionInput
+  ) {
+    deleteGroup(input: $input, condition: $condition) {
+      id
+      name
+      description
+      groupMembers
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
     }
   }
 `;
