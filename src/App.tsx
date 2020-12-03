@@ -11,7 +11,6 @@ import { Auth } from 'aws-amplify';
 import { CognitoUserInterface } from '@aws-amplify/ui-components';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
 import CreateGroupForm from './components/CreateGroupForm/CreateGroupForm';
-
 interface IAppContainer {
 }
 
