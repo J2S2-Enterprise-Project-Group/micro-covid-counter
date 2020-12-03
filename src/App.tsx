@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Nav from './components/Nav/Nav';
 import Landing from './components/Landing/Landing';
+import UserList from './components/UserList/UserList';
 import ActivityLogger from './components/ActivityLogger/ActivityLogger';
 import UserDashboard from './components/UserDashboard/UserDashboard';
 import { Auth } from 'aws-amplify';
@@ -37,6 +38,7 @@ export const App: React.FC<IAppContainer> = (): JSX.Element => {
               <Route exact path="/" component={() => <Landing isLoggedIn={user !== undefined} />} />
               {user && <Route exact path="/activity/new" component={ActivityLogger} />}
               {user && <Route exact path="/dashboard" component={UserDashboard} />}
+              {user && <Route exact path="/people" component={UserList} />}
             </Switch>
           </Container>
       </BrowserRouter>
