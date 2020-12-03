@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Nav from './components/Nav/Nav';
 import Landing from './components/Landing/Landing';
 import ActivityLogger from './components/ActivityLogger/ActivityLogger';
+import UserDashboard from './components/UserDashboard/UserDashboard';
 import { Auth } from 'aws-amplify';
 import { CognitoUserInterface } from '@aws-amplify/ui-components';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
@@ -35,6 +36,7 @@ export const App: React.FC<IAppContainer> = (): JSX.Element => {
             <Switch>
               <Route exact path="/" component={() => <Landing isLoggedIn={user !== undefined} />} />
               {user && <Route exact path="/activity/new" component={ActivityLogger} />}
+              {user && <Route exact path="/dashboard" component={UserDashboard} />}
             </Switch>
           </Container>
       </BrowserRouter>
