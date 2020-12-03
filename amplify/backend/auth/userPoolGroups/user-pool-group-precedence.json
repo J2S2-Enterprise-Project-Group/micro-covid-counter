@@ -1,14 +1,14 @@
 [
-  {
-    "groupName": "allcivilian",
-    "precedence": 1
-  },
-  {
-    "groupName": "allcityadmin",
-    "precedence": 2
-  },
-  {
-    "groupName": "allciviliangroups",
-    "precedence": 3
-  }
+    {
+        "groupName": "allcivilian",
+        "precedence": 1
+    },
+    {
+        "groupName": "allcityadmin",
+        "precedence": 2
+    },
+    {
+        "groupName": "allciviliangroups",
+        "precedence": 3
+    }
 ]

@@ -118,6 +118,30 @@ export type DeleteActivityInput = {
   id?: string | null,
 };
 
+export type CreateGroupInput = {
+  id?: string | null,
+  name: string,
+  description?: string | null,
+};
+
+export type ModelGroupConditionInput = {
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelGroupConditionInput | null > | null,
+  or?: Array< ModelGroupConditionInput | null > | null,
+  not?: ModelGroupConditionInput | null,
+};
+
+export type UpdateGroupInput = {
+  id: string,
+  name?: string | null,
+  description?: string | null,
+};
+
+export type DeleteGroupInput = {
+  id?: string | null,
+};
+
 export type ModelActivityFilterInput = {
   id?: ModelIDInput | null,
   inSocialBubble?: ModelBooleanInput | null,
@@ -148,6 +172,15 @@ export type ModelIDInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
   size?: ModelSizeInput | null,
+};
+
+export type ModelGroupFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelGroupFilterInput | null > | null,
+  or?: Array< ModelGroupFilterInput | null > | null,
+  not?: ModelGroupFilterInput | null,
 };
 
 export type CreateActivityMutationVariables = {
@@ -222,6 +255,54 @@ export type DeleteActivityMutation = {
   } | null,
 };
 
+export type CreateGroupMutationVariables = {
+  input: CreateGroupInput,
+  condition?: ModelGroupConditionInput | null,
+};
+
+export type CreateGroupMutation = {
+  createGroup:  {
+    __typename: "Group",
+    id: string,
+    name: string,
+    description: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateGroupMutationVariables = {
+  input: UpdateGroupInput,
+  condition?: ModelGroupConditionInput | null,
+};
+
+export type UpdateGroupMutation = {
+  updateGroup:  {
+    __typename: "Group",
+    id: string,
+    name: string,
+    description: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteGroupMutationVariables = {
+  input: DeleteGroupInput,
+  condition?: ModelGroupConditionInput | null,
+};
+
+export type DeleteGroupMutation = {
+  deleteGroup:  {
+    __typename: "Group",
+    id: string,
+    name: string,
+    description: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetActivityQueryVariables = {
   id: string,
 };
@@ -269,6 +350,42 @@ export type ListActivitysQuery = {
       createdAt: string,
       updatedAt: string,
       owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type GetGroupQueryVariables = {
+  id: string,
+};
+
+export type GetGroupQuery = {
+  getGroup:  {
+    __typename: "Group",
+    id: string,
+    name: string,
+    description: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListGroupsQueryVariables = {
+  filter?: ModelGroupFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListGroupsQuery = {
+  listGroups:  {
+    __typename: "ModelGroupConnection",
+    items:  Array< {
+      __typename: "Group",
+      id: string,
+      name: string,
+      description: string | null,
+      createdAt: string,
+      updatedAt: string,
     } | null > | null,
     nextToken: string | null,
   } | null,
@@ -340,5 +457,38 @@ export type OnDeleteActivitySubscription = {
     createdAt: string,
     updatedAt: string,
     owner: string | null,
+  } | null,
+};
+
+export type OnCreateGroupSubscription = {
+  onCreateGroup:  {
+    __typename: "Group",
+    id: string,
+    name: string,
+    description: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateGroupSubscription = {
+  onUpdateGroup:  {
+    __typename: "Group",
+    id: string,
+    name: string,
+    description: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteGroupSubscription = {
+  onDeleteGroup:  {
+    __typename: "Group",
+    id: string,
+    name: string,
+    description: string | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
