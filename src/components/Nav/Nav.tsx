@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Auth, Hub } from 'aws-amplify';
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
+import { CognitoUserInterface } from '@aws-amplify/ui-components';
 
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -72,7 +73,7 @@ export const Nav: React.FC<INav> = (): JSX.Element => {
     })
   );
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<CognitoUserInterface | undefined>(undefined);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -81,10 +82,12 @@ export const Nav: React.FC<INav> = (): JSX.Element => {
       switch (event) {
         case 'signIn':
         case 'cognitoHostedUI':
-          getUser().then(userData => setUser(userData));
+          getUser().then(userData => {
+            setUser(userData)
+          });
           break;
         case 'signOut':
-          setUser(null);
+          setUser(undefined);
           break;
         case 'signIn_failure':
         case 'cognitoHostedUI_failure':
@@ -100,6 +103,24 @@ export const Nav: React.FC<INav> = (): JSX.Element => {
     return Auth.currentAuthenticatedUser()
       .then(userData => userData)
       .catch(() => console.log('Not signed in'));
+  }
+
+  function isUserAdmin() {
+    return user?.signInUserSession.accessToken?.payload["cognito:groups"].includes("allcityadmin");
+  }
+
+  const getDrawerIcons = () => {
+    let icons = [
+      { text: 'Activity Log', icon: EventAvailableIcon, url: '/activity/new' },
+      { text: 'Dashboard', icon: DashboardIcon, url: '/dashboard' },
+      { text: 'Groups', icon: GroupWorkIcon, url: '/groups' }
+    ];
+
+    if (isUserAdmin()) {
+      icons.push({ text: 'People', icon: PeopleAltIcon, url: '/people' })
+    }
+
+    return icons
   }
 
   const handleDrawerOpen = () => {
@@ -142,12 +163,7 @@ export const Nav: React.FC<INav> = (): JSX.Element => {
             </div>
             <Divider />
             <List>
-
-              {[
-                { text: 'Activity Log', icon: EventAvailableIcon, url: '/activity/new' },
-                { text: 'Dashboard', icon: DashboardIcon, url: '/dashboard' },
-                { text: 'Groups', icon: GroupWorkIcon, url: '/groups' },
-                { text: 'People', icon: PeopleAltIcon, url: '/people' }].map((item, index) => (
+              {getDrawerIcons().map((item, index) => (
                   <ListItem button key={index} component={Link} to={item.url}>
                     <ListItemIcon><item.icon /></ListItemIcon>
                     <ListItemText primary={item.text} />

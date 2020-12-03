@@ -3,7 +3,7 @@ type Activity
   @auth(
     rules: [
       { allow: owner }
-      { allow: groups, groups: ["Admin"] }
+      { allow: groups, groups: ["allcityadmin"] }
       { allow: groups, groups: ["allcivilian"], provider: userPools }
     ]
   ) {
