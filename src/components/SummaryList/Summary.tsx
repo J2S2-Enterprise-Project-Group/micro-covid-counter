@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-// import './CreateActivityForm.css';
 import API, { GraphQLResult, graphqlOperation } from '@aws-amplify/api';
 import * as APIInterface from '../../API';
 import {listActivitys} from '../../graphql/queries';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -56,23 +47,25 @@ export const ActivitySummary: React.FC<ActivitySummary> = (props): JSX.Element =
     <Table aria-label="simple table">
       <TableHead>
         <TableRow>
-          <TableCell>Dessert (100g serving)</TableCell>
-          <TableCell align="right">Date</TableCell>
-          <TableCell align="right">Fat&nbsp;(g)</TableCell>
-          <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-          <TableCell align="right">Protein&nbsp;(g)</TableCell>
+          <TableCell>Date</TableCell>
+          <TableCell align="right">Distance Risk Level</TableCell>
+          <TableCell align="right">In Social Bubble&nbsp;(Y/N)</TableCell>
+          <TableCell align="right">Number of People&nbsp;(number)</TableCell>
+          <TableCell align="right">User Mask Risl Level&nbsp;(%)</TableCell>
+          <TableCell align="right">Other's Mask Risk Level&nbsp;(%)</TableCell>
+          <TableCell align="right">Risk Level&nbsp;(%)</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {getPastNValues().map(activity => (
           <TableRow key={activity.id}>
-            <TableCell component="th" scope="row">
-              {activity.id}
-            </TableCell>
-            {/* <TableCell align="right">{row.calories}</TableCell>
-            <TableCell align="right">{row.fat}</TableCell>
-            <TableCell align="right">{row.carbs}</TableCell>
-            <TableCell align="right">{row.protein}</TableCell> */}
+            <TableCell component="th" scope="row">{activity.date}</TableCell>
+            <TableCell align="right">{activity.distanceRiskLevel}</TableCell>
+            <TableCell align="right">{activity.inSocialBubble}</TableCell>
+            <TableCell align="right">{activity.userMaskRiskLevel}</TableCell>
+            <TableCell align="right">{activity.othersMaskRiskLevel}</TableCell>
+            <TableCell align="right">{activity.numPeople}</TableCell>
+            <TableCell align="right">{activity.risk}</TableCell>
           </TableRow>
         ))}
       </TableBody>
