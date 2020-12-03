@@ -11,6 +11,8 @@ import { Auth } from 'aws-amplify';
 import { CognitoUserInterface } from '@aws-amplify/ui-components';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
 import CreateGroupForm from './components/CreateGroupForm/CreateGroupForm';
+import { ActivitySummary } from './components/SummaryList/Summary';
+
 interface IAppContainer {
 }
 
@@ -41,6 +43,7 @@ export const App: React.FC<IAppContainer> = (): JSX.Element => {
               {user && <Route exact path="/dashboard" component={UserDashboard} />}
               {user && <Route exact path="/groups/create" component={CreateGroupForm} />}
               {user && <Route exact path="/people" component={UserList} />}
+              {user && <Route exact path="/activity/list" component={ActivitySummary} />}
             </Switch>
           </Container>
       </BrowserRouter>

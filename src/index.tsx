@@ -11,7 +11,7 @@ ReactDOM.render(
     <App />
   </React.StrictMode>,
   document.getElementById('root')
-);
+)
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
