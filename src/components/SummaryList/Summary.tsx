@@ -11,7 +11,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-
 interface ActivitySummary {
 }
 
@@ -22,8 +21,6 @@ export const ActivitySummary: React.FC<ActivitySummary> = (props): JSX.Element =
     async function fetchActivities() {
       try {
         const allActivitiesResponse: GraphQLResult<APIInterface.ListActivitysQuery> = await API.graphql(graphqlOperation(listActivitys)) as GraphQLResult<APIInterface.ListActivitysQuery>
-        const allActivities: any = allActivitiesResponse.data?.listActivitys?.items;
-        console.log('Activities',allActivities);
         setActivities(allActivitiesResponse)
       } catch (err) { console.log('error fetching activities: ', err) }
     }
@@ -31,11 +28,9 @@ export const ActivitySummary: React.FC<ActivitySummary> = (props): JSX.Element =
   }, [])
 
   function getPastNValues() {
-    console.log(activities)
     let values: any[] = [];
     const items = activities?.data?.listActivitys?.items
     items?.forEach(item => {
-      console.log(item)
       values.push(item)
     });
 
@@ -48,12 +43,12 @@ export const ActivitySummary: React.FC<ActivitySummary> = (props): JSX.Element =
       <TableHead>
         <TableRow>
           <TableCell>Date</TableCell>
-          <TableCell align="right">Distance Risk Level</TableCell>
-          <TableCell align="right">In Social Bubble&nbsp;(Y/N)</TableCell>
-          <TableCell align="right">Number of People&nbsp;(number)</TableCell>
-          <TableCell align="right">User Mask Risl Level&nbsp;(%)</TableCell>
-          <TableCell align="right">Other's Mask Risk Level&nbsp;(%)</TableCell>
-          <TableCell align="right">Risk Level&nbsp;(%)</TableCell>
+          <TableCell align="right">Distance Risk Tier</TableCell>
+          <TableCell align="right">In Social Bubble (Y/N)</TableCell>
+          <TableCell align="right">Number of People (number)</TableCell>
+          <TableCell align="right">User Mask Risk Tier</TableCell>
+          <TableCell align="right">Other's Mask Risk Tier</TableCell>
+          <TableCell align="right">Risk Level (%)</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -61,11 +56,11 @@ export const ActivitySummary: React.FC<ActivitySummary> = (props): JSX.Element =
           <TableRow key={activity.id}>
             <TableCell component="th" scope="row">{activity.date}</TableCell>
             <TableCell align="right">{activity.distanceRiskLevel}</TableCell>
-            <TableCell align="right">{activity.inSocialBubble}</TableCell>
+            <TableCell align="right">{activity.inSocialBubble ? "Yes" : "No"}</TableCell>
             <TableCell align="right">{activity.userMaskRiskLevel}</TableCell>
             <TableCell align="right">{activity.othersMaskRiskLevel}</TableCell>
             <TableCell align="right">{activity.numPeople}</TableCell>
-            <TableCell align="right">{activity.risk}</TableCell>
+            <TableCell align="right">{activity.risk.toFixed(4) * 100}</TableCell>
           </TableRow>
         ))}
       </TableBody>
