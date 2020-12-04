@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { CssBaseline, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import { listGroups } from '../../graphql/queries'
-import { createGroup, deleteGroup, updateGroup } from '../../graphql/mutations';
+import { createGroup, deleteGroup } from '../../graphql/mutations';
 import './CreateGroupForm.css'
 import { useState } from 'react';
 import API, { GraphQLResult, graphqlOperation } from '@aws-amplify/api';

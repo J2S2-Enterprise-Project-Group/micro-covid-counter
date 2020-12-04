@@ -3,6 +3,7 @@ import ReactFrappeChart from 'react-frappe-charts';
 import API, { GraphQLResult, graphqlOperation } from '@aws-amplify/api';
 import { listActivitys } from '../../graphql/queries'
 import * as APIInterface from '../../API';
+import { ActivitySummary } from '../SummaryList/Summary';
 
 interface UserDashboardProps {
 }
@@ -71,6 +72,8 @@ export const UserDashboard: React.FC<UserDashboardProps> = (): JSX.Element => {
           ],
         }}
       />
+      <br />
+      <ActivitySummary />
     </div>
   );
 }
