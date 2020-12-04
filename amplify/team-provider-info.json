@@ -1,22 +1,28 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-microcovidcounter-dev-212742-authRole",
-      "UnauthRoleArn": "arn:aws:iam::573437249113:role/amplify-microcovidcounter-dev-212742-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::573437249113:role/amplify-microcovidcounter-dev-212742-authRole",
-      "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-microcovidcounter-dev-212742-deployment",
-      "UnauthRoleName": "amplify-microcovidcounter-dev-212742-unauthRole",
-      "StackName": "amplify-microcovidcounter-dev-212742",
-      "StackId": "arn:aws:cloudformation:us-west-2:573437249113:stack/amplify-microcovidcounter-dev-212742/70508e10-35f1-11eb-a2ff-0a32d966afa7",
-      "AmplifyAppId": "d2ndh51vvkui8s"
-    },
-    "categories": {
-      "auth": {
-        "microcovidcounterbac8463b": {
-          "hostedUIProviderCreds": "[]"
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-microcovidcounter-dev-212742-authRole",
+            "UnauthRoleArn": "arn:aws:iam::573437249113:role/amplify-microcovidcounter-dev-212742-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::573437249113:role/amplify-microcovidcounter-dev-212742-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-microcovidcounter-dev-212742-deployment",
+            "UnauthRoleName": "amplify-microcovidcounter-dev-212742-unauthRole",
+            "StackName": "amplify-microcovidcounter-dev-212742",
+            "StackId": "arn:aws:cloudformation:us-west-2:573437249113:stack/amplify-microcovidcounter-dev-212742/70508e10-35f1-11eb-a2ff-0a32d966afa7",
+            "AmplifyAppId": "d2ndh51vvkui8s"
+        },
+        "categories": {
+            "auth": {
+                "microcovidcounterbac8463b": {
+                    "hostedUIProviderCreds": "[]"
+                }
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d2ndh51vvkui8s",
+                    "type": "cicd"
+                }
+            }
         }
-      }
     }
-  }
 }
