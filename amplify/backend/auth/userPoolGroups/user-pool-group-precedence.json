@@ -1,0 +1,10 @@
+[
+    {
+        "groupName": "allcityadmin",
+        "precedence": 1
+    },
+    {
+        "groupName": "allcivilian",
+        "precedence": 2
+    }
+]

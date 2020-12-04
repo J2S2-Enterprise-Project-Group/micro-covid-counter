@@ -1,0 +1,20 @@
+type Activity
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["allcityadmin"] }
+      { allow: groups, groups: ["allcivilian"], provider: userPools }
+    ]
+  ) {
+  id: ID!
+  inSocialBubble: Boolean!
+  numPeople: Int!
+  distanceRiskLevel: Int!
+  isIndoors: Boolean!
+  userMaskRiskLevel: Int!
+  othersMaskRiskLevel: Int!
+  volumeLevel: Int!
+  date: AWSDate!
+  risk: Float!
+}
