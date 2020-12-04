@@ -38,7 +38,6 @@ export const UserDashboard: React.FC<UserDashboardProps> = (): JSX.Element => {
     items = items?.sort(function (a: any, b: any) {
       return a._lastChangedAt - b._lastChangedAt;
     })
-    console.log(items)
     items?.forEach(item => {
       values.push(item?.risk ?? 0)
     });
