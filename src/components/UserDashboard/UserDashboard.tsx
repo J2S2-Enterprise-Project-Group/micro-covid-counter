@@ -14,11 +14,10 @@ export const UserDashboard: React.FC<UserDashboardProps> = (): JSX.Element => {
   useEffect(() => {
     async function fetchActivities() {
       try {
-        const allActivitiesResponse: GraphQLResult<APIInterface.ListActivitysQuery> = await API.graphql(graphqlOperation(listActivitys, { limit: 8 })) as GraphQLResult<APIInterface.ListActivitysQuery>
+        const allActivitiesResponse: GraphQLResult<APIInterface.ListActivitysQuery> = await API.graphql(graphqlOperation(listActivitys)) as GraphQLResult<APIInterface.ListActivitysQuery>
         setActivities(allActivitiesResponse)
       } catch (err) { console.log('error fetching activities: ', err) }
     }
-
     fetchActivities()
   }, [])
 
@@ -34,11 +33,19 @@ export const UserDashboard: React.FC<UserDashboardProps> = (): JSX.Element => {
   }
 
   function getPastNValues(n = 8) {
-    let values: any[] = [];
-    const items = activities?.data?.listActivitys?.items
+    let values: number[] = [];
+    let items = activities?.data?.listActivitys?.items;
+    items = items?.sort(function (a: any, b: any) {
+      return a._lastChangedAt - b._lastChangedAt;
+    })
+    console.log(items)
     items?.forEach(item => {
-      values.push(item?.risk.toFixed(6) ?? 0)
+      values.push(item?.risk ?? 0)
     });
+
+    if (values.length >= n) {
+      values = values.slice(-1 * n);
+    }
 
     return values;
   }
@@ -65,10 +72,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = (): JSX.Element => {
         data={{
           labels: getChartLabels(),
           datasets: [
-            { name: 'Me', values: getPastNValues(8) },
-            { name: 'Shiv', values: getNRandomValues(8) },
-            { name: 'Jocelyn', values: getNRandomValues(8) },
-            { name: 'Jagruti', values: getNRandomValues(8) },
+            { name: 'Me', values: getPastNValues() }
           ],
         }}
       />
