@@ -52,19 +52,19 @@ export const UserList: React.FC<UserListProps> = (): JSX.Element => {
   return (
     <div className="UserList">
       <List component="nav">
-        {admins.map(admin => 
+        {admins.map(admin => admin.Attributes[3] && admin.Attributes[4] ?
           <ListItem button>
             <ListItemIcon>
               <SupervisorAccountIcon />
             </ListItemIcon>
-            <ListItemText primary={`${admin.Attributes[3].Value} (${admin.Attributes[4].Value})`} />
-          </ListItem>
+            <ListItemText primary={`${admin.Attributes[3]?.Value ?? ""} (${admin.Attributes[4]?.Value ?? ""})`} />
+          </ListItem> : null
         )}
-        {users.map(user => 
+        {users.map(user => user.Attributes[3] && user.Attributes[4] ?
           <ListItem button>
             <ListItemIcon></ListItemIcon>
-            <ListItemText primary={`${user.Attributes[3].Value} (${user.Attributes[4].Value})`} />
-          </ListItem>
+            <ListItemText primary={`${user.Attributes[3]?.Value ?? ""} (${user.Attributes[4]?.Value ?? ""})`} />
+          </ListItem> : null
         )}
       </List>
     </div>
