@@ -3,22 +3,12 @@
 
 const awsmobile = {
     "aws_project_region": "us-west-2",
-    "aws_appsync_graphqlEndpoint": "https://mgtp3fuaxfbc3bu5mmme2elnny.appsync-api.us-west-2.amazonaws.com/graphql",
-    "aws_appsync_region": "us-west-2",
-    "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
-    "aws_cloud_logic_custom": [
-        {
-            "name": "AdminQueries",
-            "endpoint": "https://vu5qg0u632.execute-api.us-west-2.amazonaws.com/dev",
-            "region": "us-west-2"
-        }
-    ],
-    "aws_cognito_identity_pool_id": "us-west-2:8d59c646-2af5-4cbb-877b-32d0d5fee38a",
+    "aws_cognito_identity_pool_id": "us-west-2:eb8fc4ca-d715-4e75-9cbe-7cdae39b7ecf",
     "aws_cognito_region": "us-west-2",
-    "aws_user_pools_id": "us-west-2_e2WKRUN95",
-    "aws_user_pools_web_client_id": "efflp1iboab9m4359ukcg2io",
+    "aws_user_pools_id": "us-west-2_6OvzS00uR",
+    "aws_user_pools_web_client_id": "6loe7eg9avi5ncon4hkatttvp2",
     "oauth": {
-        "domain": "covidcounterba0a32fb-dev.auth.us-west-2.amazoncognito.com",
+        "domain": "microcovidcounter-dev.auth.us-west-2.amazoncognito.com",
         "scope": [
             "phone",
             "email",
@@ -30,7 +20,17 @@ const awsmobile = {
         "redirectSignOut": "http://localhost:3000/",
         "responseType": "code"
     },
-    "federationTarget": "COGNITO_USER_POOLS"
+    "federationTarget": "COGNITO_USER_POOLS",
+    "aws_appsync_graphqlEndpoint": "https://u6ccgkwy4zaupmkzz2kp7qqspy.appsync-api.us-west-2.amazonaws.com/graphql",
+    "aws_appsync_region": "us-west-2",
+    "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
+    "aws_cloud_logic_custom": [
+        {
+            "name": "AdminQueries",
+            "endpoint": "https://z9ujup8o19.execute-api.us-west-2.amazonaws.com/dev",
+            "region": "us-west-2"
+        }
+    ]
 };
 
 

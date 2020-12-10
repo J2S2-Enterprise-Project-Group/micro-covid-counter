@@ -5,9 +5,9 @@
     "env": {
       "Type": "String"
     },
-    "authcovidcounterba0a32fbUserPoolId": {
+    "authmicrocovidcounterbac8463bUserPoolId": {
       "Type": "String",
-      "Default": "authcovidcounterba0a32fbUserPoolId"
+      "Default": "authmicrocovidcounterbac8463bUserPoolId"
     }
   },
   "Conditions": {
@@ -32,12 +32,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "AdminQueriesd0d6159a",
+            "AdminQueries825fd286",
             {
               "Fn::Join": [
                 "",
                 [
-                  "AdminQueriesd0d6159a",
+                  "AdminQueries825fd286",
                   "-",
                   {
                     "Ref": "env"
@@ -54,7 +54,7 @@
             },
             "GROUP": "allcityadmin",
             "USERPOOL": {
-              "Ref": "authcovidcounterba0a32fbUserPoolId"
+              "Ref": "authmicrocovidcounterbac8463bUserPoolId"
             }
           }
         },
@@ -67,8 +67,8 @@
         "Runtime": "nodejs10.x",
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-covidcounter-dev-105352-deployment",
-          "S3Key": "amplify-builds/AdminQueriesd0d6159a-797043363255384f5841-build.zip"
+          "S3Bucket": "amplify-microcovidcounter-dev-212742-deployment",
+          "S3Key": "amplify-builds/AdminQueries825fd286-5a367957356c2f797961-build.zip"
         }
       }
     },
@@ -78,12 +78,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "AdminQueriesd0d6159aLambdaRole",
+            "AdminQueries825fd286LambdaRole",
             {
               "Fn::Join": [
                 "",
                 [
-                  "AdminQueriesd0d6159aLambdaRole",
+                  "AdminQueries825fd286LambdaRole",
                   "-",
                   {
                     "Ref": "env"
@@ -179,7 +179,7 @@
                     },
                     ":userpool/",
                     {
-                      "Ref": "authcovidcounterba0a32fbUserPoolId"
+                      "Ref": "authmicrocovidcounterbac8463bUserPoolId"
                     }
                   ]
                 ]

@@ -18,12 +18,3 @@ type Activity
   date: AWSDate!
   risk: Float!
 }
-
-type Group 
-@model {
-  id: ID!
-  name: String!
-  description: String
-  groupMembers:[String]
-}
-

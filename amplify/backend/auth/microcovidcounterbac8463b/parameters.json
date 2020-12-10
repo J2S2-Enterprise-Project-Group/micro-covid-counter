@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "covidcounterba0a32fb_identitypool_ba0a32fb",
+    "identityPoolName": "microcovidcounterbac8463b_identitypool_bac8463b",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "covidcba0a32fb",
-    "userPoolName": "covidcounterba0a32fb_userpool_ba0a32fb",
+    "resourceNameTruncated": "microcbac8463b",
+    "userPoolName": "microcovidcounterbac8463b_userpool_bac8463b",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "covidcba0a32fb_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "microcbac8463b_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "ba0a32fb",
-    "resourceName": "covidcounterba0a32fb",
+    "sharedId": "bac8463b",
+    "resourceName": "microcovidcounterbac8463b",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -46,15 +46,15 @@
         ]
     },
     "useDefault": "defaultSocial",
+    "hostedUI": true,
     "usernameAttributes": [
         "email"
     ],
-    "userPoolGroupList": [],
-    "serviceName": "Cognito",
-    "dependsOn": [],
-    "hostedUI": true,
-    "hostedUIDomainName": "covidcounterba0a32fb",
+    "hostedUIDomainName": "microcovidcounter",
     "authProvidersUserPool": [],
     "hostedUIProviderMeta": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "dependsOn": []
 }

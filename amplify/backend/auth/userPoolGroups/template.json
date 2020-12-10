@@ -1,23 +1,23 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
-        "authcovidcounterba0a32fbUserPoolId": {
+        "authmicrocovidcounterbac8463bUserPoolId": {
             "Type": "String",
-            "Default": "authcovidcounterba0a32fbUserPoolId"
+            "Default": "authmicrocovidcounterbac8463bUserPoolId"
         },
         
-        "authcovidcounterba0a32fbIdentityPoolId": {
+        "authmicrocovidcounterbac8463bIdentityPoolId": {
             "Type": "String",
-            "Default": "authcovidcounterba0a32fbIdentityPoolId"
+            "Default": "authmicrocovidcounterbac8463bIdentityPoolId"
         },
         
-        "authcovidcounterba0a32fbAppClientID": {
+        "authmicrocovidcounterbac8463bAppClientID": {
             "Type": "String",
-            "Default": "authcovidcounterba0a32fbAppClientID"
+            "Default": "authmicrocovidcounterbac8463bAppClientID"
         },
-        "authcovidcounterba0a32fbAppClientIDWeb": {
+        "authmicrocovidcounterbac8463bAppClientIDWeb": {
             "Type": "String",
-            "Default": "authcovidcounterba0a32fbAppClientIDWeb"
+            "Default": "authmicrocovidcounterbac8463bAppClientIDWeb"
         },
         "AuthRoleArn": {
             "Type": "String"
@@ -41,65 +41,11 @@
     },
     "Resources": {
     
-        "allcivilianGroup": {
-          "Type" : "AWS::Cognito::UserPoolGroup",
-          "Properties" : {
-              "GroupName" : "allcivilian",
-              "Precedence" : 1,
-              
-              "RoleArn" : {
-                "Fn::GetAtt": [
-                    "allcivilianGroupRole",
-                    "Arn"
-                ]
-              },
-              
-              "UserPoolId" : {
-                "Ref": "authcovidcounterba0a32fbUserPoolId"
-              } 
-            }
-        },
-        
-        "allcivilianGroupRole": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-                "RoleName":{
-                    "Fn::Join": [
-                        "",
-                        [
-                          {
-                            "Ref": "authcovidcounterba0a32fbUserPoolId"
-                          },
-                          "-allcivilianGroupRole"
-                        ]
-                    ]
-                },
-                "AssumeRolePolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Sid": "",
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Federated": "cognito-identity.amazonaws.com"
-                            },
-                            "Action": "sts:AssumeRoleWithWebIdentity",
-                            "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authcovidcounterba0a32fbIdentityPoolId"}},
-                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-     
-    
         "allcityadminGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
               "GroupName" : "allcityadmin",
-              "Precedence" : 2,
+              "Precedence" : 1,
               
               "RoleArn" : {
                 "Fn::GetAtt": [
@@ -109,7 +55,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authcovidcounterba0a32fbUserPoolId"
+                "Ref": "authmicrocovidcounterbac8463bUserPoolId"
               } 
             }
         },
@@ -122,7 +68,7 @@
                         "",
                         [
                           {
-                            "Ref": "authcovidcounterba0a32fbUserPoolId"
+                            "Ref": "authmicrocovidcounterbac8463bUserPoolId"
                           },
                           "-allcityadminGroupRole"
                         ]
@@ -139,7 +85,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authcovidcounterba0a32fbIdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmicrocovidcounterbac8463bIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -149,26 +95,26 @@
         },
      
     
-        "allciviliangroupsGroup": {
+        "allcivilianGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
-              "GroupName" : "allciviliangroups",
-              "Precedence" : 3,
+              "GroupName" : "allcivilian",
+              "Precedence" : 2,
               
               "RoleArn" : {
                 "Fn::GetAtt": [
-                    "allciviliangroupsGroupRole",
+                    "allcivilianGroupRole",
                     "Arn"
                 ]
               },
               
               "UserPoolId" : {
-                "Ref": "authcovidcounterba0a32fbUserPoolId"
+                "Ref": "authmicrocovidcounterbac8463bUserPoolId"
               } 
             }
         },
         
-        "allciviliangroupsGroupRole": {
+        "allcivilianGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName":{
@@ -176,9 +122,9 @@
                         "",
                         [
                           {
-                            "Ref": "authcovidcounterba0a32fbUserPoolId"
+                            "Ref": "authmicrocovidcounterbac8463bUserPoolId"
                           },
-                          "-allciviliangroupsGroupRole"
+                          "-allcivilianGroupRole"
                         ]
                     ]
                 },
@@ -193,7 +139,7 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authcovidcounterba0a32fbIdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmicrocovidcounterbac8463bIdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -219,7 +165,7 @@
                                 "",
                                 [
                                   
-                                  "covidcounterba0a32fb",
+                                  "microcovidcounterbac8463b",
                                   "-ExecutionRole-",
                                   {
                                     "Ref": "env"
@@ -378,16 +324,16 @@
                     "Ref": "UnauthRoleArn"
                 },
                 "identityPoolId": {
-                    "Ref": "authcovidcounterba0a32fbIdentityPoolId"
+                    "Ref": "authmicrocovidcounterbac8463bIdentityPoolId"
                 },
                 "userPoolId": {
-                    "Ref": "authcovidcounterba0a32fbUserPoolId"
+                    "Ref": "authmicrocovidcounterbac8463bUserPoolId"
                 },
                 "appClientIDWeb": {
-                    "Ref": "authcovidcounterba0a32fbAppClientIDWeb"
+                    "Ref": "authmicrocovidcounterbac8463bAppClientIDWeb"
                 },
                 "appClientID": {
-                    "Ref": "authcovidcounterba0a32fbAppClientID"
+                    "Ref": "authmicrocovidcounterbac8463bAppClientID"
                 },
                 "region": {
                     "Ref": "AWS::Region"
@@ -403,17 +349,6 @@
     
     "Outputs": {
       
-        "allcivilianGroupRole": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "allcivilianGroupRole",
-                    "Arn"
-                ]
-            }
-         
-        },
-        
-      
         "allcityadminGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
@@ -425,10 +360,10 @@
         },
         
       
-        "allciviliangroupsGroupRole": {
+        "allcivilianGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "allciviliangroupsGroupRole",
+                    "allcivilianGroupRole",
                     "Arn"
                 ]
             }
